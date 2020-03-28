@@ -1,1 +1,1 @@
-# dictionaryApp
+# Medi App
