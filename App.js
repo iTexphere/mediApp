@@ -31,6 +31,7 @@ import Login from './app/screens/login';
 import Home from './app/screens/home';
 import Details from './app/screens/details';
 import Search from './app/screens/search';
+import Registration from './app/screens/registration';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import FFIcon from 'react-native-vector-icons/FontAwesome5';
@@ -45,6 +46,7 @@ const HomeStackScreen = () => {
     headerTintColor:Colors.white
   }}>
     <HomeStack.Screen name="Login" options={{ headerShown: false }}  component={Login} />
+    <HomeStack.Screen name="Registration" options={{ headerShown: false }} component={Registration} />
     <HomeStack.Screen name="Home" options={{ headerShown: false }} component={Home} />
     <HomeStack.Screen name="Search" options={{ headerStyle:{backgroundColor:Colors.headerBackground} }} component={Search}  />
   </HomeStack.Navigator>)
