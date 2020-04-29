@@ -15,6 +15,7 @@ export const useValidateForm = (
 
   const onSubmit = () => {
     const errors = validate(values);
+    console.log( "values", values  )
     if (Object.keys(errors).length === 0) {
       cb(values);
       //setValues(initalState);

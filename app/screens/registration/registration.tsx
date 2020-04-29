@@ -22,15 +22,15 @@ const Registration: FunctionComponent<Props> = ({ navigation }) => {
   const disable = useSelector((state: RootState) => state.reg.disable);
 
   const formInitial: IPostRegisterDto = {
-    first_name: '',
-    last_name: '',
-    user_name: '',
-    password: '',
-    nic: '',
-    email: '',
-    mobile_number: '',
-    city: '',
-    district: '',
+    first_name: 'Shayan',
+    last_name: 'Khan',
+    user_name: 'Shayan',
+    password: '123456',
+    nic: '2884757583',
+    email: 'shayan.logico@gmail.com',
+    mobile_number: '03045691296',
+    city: 'Karachi',
+    district: 'Base',
     role: 'patient'
   };
 

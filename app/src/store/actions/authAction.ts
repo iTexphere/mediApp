@@ -28,9 +28,7 @@ export const auth = (
 ) => {
   dispatch(loginRequest());
   try {
-    const res = await API.post('/signin', {
-      data
-    });
+    const res = await API.post(`/signin?user_name=${data.user_name}&password=${data.password}`);
     dispatch(loginSuccess(res.data));
   } catch (err) {
     dispatch(loginFailure(err.message || err || 'Something Went Wrong'));
