@@ -19,12 +19,12 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Colors from './app/utils/Colors';
 
-import Login from './app/screens/login';
-import Home from './app/screens/home';
+import Login from './app/screens/patient/login';
+import Home from './app/screens/patient/home';
 //import Details from './app/screens/details';
-import Search from './app/screens/search';
-import Registration from './app/screens/registration';
-import MedicalLogin from './app/screens/medicalLogin';
+import Search from './app/screens/patient/search';
+import Registration from './app/screens/patient/patientRegistration';
+import MedicalLogin from './app/screens/medicalCenter/medicalLogin';
 ;
 import { rootStackParamList } from './Nav_types';
 

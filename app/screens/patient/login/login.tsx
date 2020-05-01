@@ -1,14 +1,16 @@
 import React, { useState, useEffect, FunctionComponent } from 'react';
-import { View, Image, Text } from 'react-native';
+import { View, Image, Text, TouchableOpacity } from 'react-native';
 import styles from './style';
 import { Container, Content, Item, Input, Icon, Button } from 'native-base';
 import { useSelector, useDispatch } from 'react-redux';
-import { medicalAuth } from '../../src/store/actions/index';
-import Loader from '../../components/Loader/index';
-import { RootState } from '../../src/store/types';
-import { Props } from '../../../Nav_types';
+import { auth } from '../../../src/store/actions/index';
 
-const MedicalLogin: FunctionComponent<Props> = ({ navigation }) => {
+import Loader from '../../../components/Loader/index';
+import { RootState } from '../../../src/store/types';
+import { Props } from '../../../../Nav_types';
+// import { TouchableOpacity } from 'react-native-gesture-handler';
+
+const Login: FunctionComponent<Props> = ({ navigation }) => {
   const response = useSelector((state: RootState) => state.auth.data);
   const error = useSelector((state: RootState) => state.auth.error);
   const disable = useSelector((state: RootState) => state.auth.disable);
@@ -47,7 +49,7 @@ const MedicalLogin: FunctionComponent<Props> = ({ navigation }) => {
       password: password
     };
     if (!isInvalid) {
-      await dispatch(medicalAuth(payload));
+      await dispatch(auth(payload));
     }
   };
 
@@ -59,7 +61,7 @@ const MedicalLogin: FunctionComponent<Props> = ({ navigation }) => {
           {/* logo */}
           <View style={styles.logoArea}>
             <Image
-              source={require('../../assests/logo1.png')}
+              source={require('../../../assests/logo1.png')}
               // source={{uri:'https://via.placeholder.com/100x100.png?text=Logo'}}
               style={{ height: 200, width: 200 }}
             />
@@ -67,10 +69,6 @@ const MedicalLogin: FunctionComponent<Props> = ({ navigation }) => {
 
           {/* form */}
           <View style={styles.formArea}>
-
-            <View   >
-              <Text style={{ textAlign: 'center' }} >Login with Medical</Text>
-            </View>
             <Item style={styles.usernameWrap}>
               <Icon name="person" style={styles.inputIcon} />
               <Input
@@ -116,7 +114,14 @@ const MedicalLogin: FunctionComponent<Props> = ({ navigation }) => {
             </View>
           </View>
         </View>
+
       </Content>
+
+      <View style={styles.medicalAuth}  >
+        <Text onPress={() => navigation.navigate('Auth')}  >Login with Medical center</Text>
+      </View>
+
+
     </Container>
   );
 };
@@ -139,4 +144,4 @@ const MedicalLogin: FunctionComponent<Props> = ({ navigation }) => {
 //   mapDispatchToProps
 // )(Login);
 
-export default MedicalLogin;
+export default Login;

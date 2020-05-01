@@ -4,11 +4,11 @@ import styles from './style';
 import EnIcon from 'react-native-vector-icons/Entypo';
 import FaIcon from 'react-native-vector-icons/FontAwesome';
 
-import { ChannelListItem } from '../../components/ChannelListItem';
-import { BookingColumn } from '../../components/BookingColumn';
-import { NearbyLocation } from '../../components/NearbyLocation';
+import { ChannelListItem } from '../../../components/ChannelListItem';
+import { BookingColumn } from '../../../components/BookingColumn';
+import { NearbyLocation } from '../../../components/NearbyLocation';
 import { Container, Content, List, Text } from 'native-base';
-import Colors from '../../utils/Colors';
+import Colors from '../../../utils/Colors';
 
 interface IDoctor {
   url: string;

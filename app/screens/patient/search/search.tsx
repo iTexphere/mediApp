@@ -7,10 +7,10 @@ import {
   ScrollView
 } from 'react-native';
 import styles from './styles';
-import Colors from '../../utils/Colors';
+import Colors from '../../../utils/Colors';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Container, List, ListItem, Button, Header, Content, Text, Item, Picker, Icon, Label, Input } from 'native-base';
-import { ChannelListItem } from '../../components/ChannelListItem'
+import { ChannelListItem } from '../../../components/ChannelListItem'
 
 import EnIcon from 'react-native-vector-icons/Entypo';
 import FaIcon from 'react-native-vector-icons/FontAwesome';

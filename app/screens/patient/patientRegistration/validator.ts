@@ -1,5 +1,5 @@
-import { IPostRegisterDto } from '../../src/dto';
-import { EMAIL_REGEX, Phone_REGEX } from '../../utils';
+import { IPostRegisterDto } from '../../../src/dto';
+import { EMAIL_REGEX, Phone_REGEX } from '../../../utils';
 
 /**
  * Create Error Objects for the form inputs

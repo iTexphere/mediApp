@@ -3,14 +3,14 @@ import { View, Image, Text } from 'react-native';
 import { Container, Content, Item, Icon } from 'native-base';
 import { Input, Button } from 'react-native-elements';
 import { useSelector, useDispatch } from 'react-redux';
-import { registration } from '../../src/store/actions/index';
+import { registration } from '../../../src/store/actions/index';
 
-import { IPostRegisterDto } from '../../src/dto';
-import { RootState } from '../../src/store/types';
-import { Props } from '../../../Nav_types';
+import { IPostRegisterDto } from '../../../src/dto';
+import { RootState } from '../../../src/store/types';
+import { Props } from '../../../../Nav_types';
 
-import Loader from '../../components/Loader/index';
-import { useValidateForm } from '../../hooks/useValidateForm';
+import Loader from '../../../components/Loader/index';
+import { useValidateForm } from '../../../hooks/useValidateForm';
 import styles from './style';
 import { validator } from './validator';
 
@@ -63,7 +63,7 @@ const Registration: FunctionComponent<Props> = ({ navigation }) => {
           {/* logo */}
           <View style={styles.logoArea}>
             <Image
-              source={require('../../assests/logo1.png')}
+              source={require('../../../assests/logo1.png')}
               style={{ height: 200, width: 200 }}
             />
           </View>
