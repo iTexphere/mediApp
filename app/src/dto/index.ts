@@ -19,6 +19,27 @@ export interface IPostRegisterDto {
   role?: string;
 }
 
+export interface IPostMedicalLoginDto {
+  user_name: string;
+  password: string;
+}
+
+export interface IPostMedicalRegisterDto {
+  dr_name: string;
+  specialist_in: string;
+  reg_no: string;
+  center_name: string; 
+  start_time: string;
+  end_time: string;
+  open_days: string;
+  city: string;
+  district: string;
+  dr_notes: string;
+  user_name: string;
+  password: string;
+  role?: string;
+}
+
 /**
  * API response types
  */

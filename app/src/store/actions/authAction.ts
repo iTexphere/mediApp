@@ -28,7 +28,7 @@ export const auth = (
 ) => {
   dispatch(loginRequest());
   try {
-    const res = await API.post(`/signin?user_name=${data.user_name}&password=${data.password}`);
+    const res = await API.post(`/patient/signin?user_name=${data.user_name}&password=${data.password}`);
     dispatch(loginSuccess(res.data));
   } catch (err) {
     dispatch(loginFailure(err.message || err || 'Something Went Wrong'));
@@ -44,7 +44,7 @@ export const registration = (
 ) => {
   dispatch(registrationRequest());
   try {
-    const res = await API.post('/signup', data);
+    const res = await API.post('patient/signup', data);
     dispatch(registrationSuccess(res.data));
   } catch (err) {
     dispatch(registrationFailure(err.message || err || 'Something Went Wrong'));

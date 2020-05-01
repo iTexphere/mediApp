@@ -1,10 +1,10 @@
-import { StyleSheet } from "react-native";
-import Colors from "../../utils/Colors";
+import { StyleSheet } from 'react-native';
+import Colors from '../../utils/Colors';
 
 export default StyleSheet.create({
   loginWrap: {
     // borderWidth:1,
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.white
     //flex: 1,
     // justifyContent:'space-around',
     //alignItems: 'flex-end',
@@ -12,16 +12,16 @@ export default StyleSheet.create({
   loginInnerWrap: {
     flex: 1,
     // borderWidth:1,
-    padding: 20,
+    padding: 20
   },
   logoArea: {
     // borderWidth:1,
-    justifyContent: "center",
-    width: "100%",
+    justifyContent: 'center',
+    width: '100%',
     //height:'100%',
-    alignItems: "center",
+    alignItems: 'center',
     flex: 1,
-    height: 200,
+    height: 200
     // height:100,
     // width:100,
     // flex:1,
@@ -34,13 +34,13 @@ export default StyleSheet.create({
   formInnerWrap: {},
   inputIcon: {
     width: 30,
-    color: Colors.lightGray,
+    color: Colors.lightGray
   },
   usernameWrap: {
     // backgroundColor:'white',
     padding: 10,
     borderColor: Colors.black,
-    marginBottom: 10,
+    marginBottom: 10
     //alignItems:'flex-end',
     // backgroundColor:'black'
   },
@@ -50,30 +50,23 @@ export default StyleSheet.create({
     marginBottom: 10,
     borderRadius: 5,
     height: 60,
-    backgroundColor: Colors.primaryBtn,
+    backgroundColor: Colors.primaryBtn
   },
   loginBtnTxt: {
     color: Colors.white,
-    fontSize: 22,
+    fontSize: 22
   },
   loginFooterWrap: {
-    flexDirection: "row",
-    alignSelf: "center",
-    margin: 10,
+    flexDirection: 'row',
+    alignSelf: 'center',
+    margin: 10
   },
   dontHaveAccntTxt: {
     fontSize: 17,
-    color: Colors.black,
+    color: Colors.black
   },
   signupTxt: {
     color: Colors.secondaryBtn,
-    fontWeight: "bold",
-  },
-  medicalAuth: {
-    position: "absolute",
-    width: 200,
-    bottom: 20,
-    left: "35%",
-    marginLeft: -25,
-  },
+    fontWeight: 'bold'
+  }
 });

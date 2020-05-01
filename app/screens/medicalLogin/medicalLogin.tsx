@@ -1,16 +1,14 @@
 import React, { useState, useEffect, FunctionComponent } from 'react';
-import { View, Image, Text, TouchableOpacity } from 'react-native';
+import { View, Image, Text } from 'react-native';
 import styles from './style';
 import { Container, Content, Item, Input, Icon, Button } from 'native-base';
 import { useSelector, useDispatch } from 'react-redux';
-import { auth } from '../../src/store/actions/index';
-
+import { medicalAuth } from '../../src/store/actions/index';
 import Loader from '../../components/Loader/index';
 import { RootState } from '../../src/store/types';
 import { Props } from '../../../Nav_types';
-// import { TouchableOpacity } from 'react-native-gesture-handler';
 
-const Login: FunctionComponent<Props> = ({ navigation }) => {
+const MedicalLogin: FunctionComponent<Props> = ({ navigation }) => {
   const response = useSelector((state: RootState) => state.auth.data);
   const error = useSelector((state: RootState) => state.auth.error);
   const disable = useSelector((state: RootState) => state.auth.disable);
@@ -49,7 +47,7 @@ const Login: FunctionComponent<Props> = ({ navigation }) => {
       password: password
     };
     if (!isInvalid) {
-      await dispatch(auth(payload));
+      await dispatch(medicalAuth(payload));
     }
   };
 
@@ -69,6 +67,10 @@ const Login: FunctionComponent<Props> = ({ navigation }) => {
 
           {/* form */}
           <View style={styles.formArea}>
+
+            <View   >
+              <Text style={{ textAlign: 'center' }} >Login with Medical</Text>
+            </View>
             <Item style={styles.usernameWrap}>
               <Icon name="person" style={styles.inputIcon} />
               <Input
@@ -114,14 +116,7 @@ const Login: FunctionComponent<Props> = ({ navigation }) => {
             </View>
           </View>
         </View>
-
       </Content>
-
-      <View style={styles.medicalAuth}  >
-        <Text onPress={() => navigation.navigate('Auth')}  >Login with Medical center</Text>
-      </View>
-
-
     </Container>
   );
 };
@@ -144,4 +139,4 @@ const Login: FunctionComponent<Props> = ({ navigation }) => {
 //   mapDispatchToProps
 // )(Login);
 
-export default Login;
+export default MedicalLogin;
