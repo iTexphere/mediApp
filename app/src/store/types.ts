@@ -1,4 +1,4 @@
-import { ILoginResponseDto, IRegisterResponseDto } from '../dto';
+import { ILoginResponseDto, IRegisterResponseDto, IMedicalRegisterResponseDto } from '../dto';
 import { rootReducer } from './configureStore';
 
 /**
@@ -103,7 +103,7 @@ export type RegisterDispatchTypes =
   
   export interface IMedicalRegisterSuccess {
     type: typeof ActionTypes.MEDICAL_REGISTRATION_SUCCESS;
-    payload: IRegisterResponseDto;
+    payload: IMedicalRegisterResponseDto;
   }
   
   export interface IMedicalRegisterFailer {

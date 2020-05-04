@@ -9,13 +9,13 @@ import { RootState } from '../../../src/store/types';
 import { Props } from '../../../../Nav_types';
 
 const MedicalLogin: FunctionComponent<Props> = ({ navigation }) => {
-  const response = useSelector((state: RootState) => state.auth.data);
-  const error = useSelector((state: RootState) => state.auth.error);
-  const disable = useSelector((state: RootState) => state.auth.disable);
+  const response = useSelector((state: RootState) => state.medicalAuth.data);
+  const error = useSelector((state: RootState) => state.medicalAuth.error);
+  const disable = useSelector((state: RootState) => state.medicalAuth.disable);
   const dispatch = useDispatch();
 
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('jagath');
+  const [password, setPassword] = useState('12345');
 
   useEffect(() => {
     if (error) {
@@ -46,6 +46,9 @@ const MedicalLogin: FunctionComponent<Props> = ({ navigation }) => {
       user_name: username,
       password: password
     };
+
+    
+
     if (!isInvalid) {
       await dispatch(medicalAuth(payload));
     }
@@ -108,7 +111,7 @@ const MedicalLogin: FunctionComponent<Props> = ({ navigation }) => {
               </Text>
               <Text
                 style={[styles.dontHaveAccntTxt, styles.signupTxt]}
-                onPress={() => navigation.navigate('Registration')}
+                onPress={() => navigation.navigate('MedicalRegistration')}
               >
                 {' '}
                 Sign up here

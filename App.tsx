@@ -25,7 +25,7 @@ import Home from './app/screens/patient/home';
 import Search from './app/screens/patient/search';
 import Registration from './app/screens/patient/patientRegistration';
 import MedicalLogin from './app/screens/medicalCenter/medicalLogin';
-;
+import MedicalRegistration from './app/screens/medicalCenter/medicalRegister';
 import { rootStackParamList } from './Nav_types';
 
 const DrawerNav = createDrawerNavigator();
@@ -53,6 +53,11 @@ const HomeStackScreen = () => {
        name="Auth"
        options={{ headerShown: false }}
        component={MedicalLogin}
+     />
+     <HomeStack.Screen
+       name="MedicalRegistration"
+       options={{ headerShown: false }}
+       component={MedicalRegistration}
      />
       <HomeStack.Screen
         name="Home"

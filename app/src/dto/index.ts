@@ -54,6 +54,16 @@ export interface ILoginResponseDto {
   access_token: string;
 }
 
+// export interface IMedicalLoginResponseDto {
+//   status: string;
+//   user_info: {
+//     user_name: string;
+//     role: string;
+//     info: any;
+//   };
+//   access_token: string;
+// }
+
 export interface IRegisterResponseDto {
   status: string;
   data: {
@@ -80,4 +90,14 @@ export interface IRegisterResponseDto {
     created_at: string;
     id: number;
   };
+}
+
+export interface IMedicalRegisterResponseDto {
+  status: string;
+    user_info: {
+      user_name: string;
+      role: string;
+      info: any
+    };
+  access_token: string;
 }

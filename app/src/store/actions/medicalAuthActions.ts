@@ -1,6 +1,6 @@
 import {
     ILoginResponseDto,
-    IRegisterResponseDto,
+    IMedicalRegisterResponseDto,
     IPostMedicalLoginDto,
     IPostMedicalRegisterDto
   } from '../../dto';
@@ -28,7 +28,7 @@ import {
   ) => {
     dispatch(medicalLoginRequest());
     try {
-      const res = await API.post(`medical/signin?user_name=${data.user_name}&password=${data.password}`);
+      const res = await API.post(`medical/signin`, data);
       dispatch(medicalLoginSuccess(res.data));
     } catch (err) {
       dispatch(medicalLoginFailure(err.message || err || 'Something Went Wrong'));
@@ -69,7 +69,7 @@ import {
     type: ActionTypes.MEDICAL_REGISTRATION_REQUEST
   });
   
-  const medicalRegistrationSuccess = (data: IRegisterResponseDto): IMedicalRegisterSuccess => ({
+  const medicalRegistrationSuccess = (data: IMedicalRegisterResponseDto): IMedicalRegisterSuccess => ({
     type: ActionTypes.MEDICAL_REGISTRATION_SUCCESS,
     payload: data
   });
