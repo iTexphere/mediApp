@@ -1,10 +1,10 @@
-import React, { useEffect, FunctionComponent } from 'react';
-import { View, Image, Text } from 'react-native';
+import React, { useEffect, FunctionComponent, useState } from 'react';
+import { View, Image, Text, Platform } from 'react-native';
 import { Container, Content, Item, Icon } from 'native-base';
 import { Input, Button } from 'react-native-elements';
 import { useSelector, useDispatch } from 'react-redux';
 import { medicalRegistration } from '../../../src/store/actions/index';
-
+import DateTimePicker from '@react-native-community/datetimepicker';
 import { IPostMedicalRegisterDto } from '../../../src/dto';
 import { RootState } from '../../../src/store/types';
 import { Props } from '../../../../Nav_types';
@@ -20,6 +20,10 @@ const Registration: FunctionComponent<Props> = ({ navigation }) => {
   const response = useSelector((state: RootState) => state.medicalReg.data);
   const net_error = useSelector((state: RootState) => state.medicalReg.error);
   const disable = useSelector((state: RootState) => state.medicalReg.disable);
+
+  const [date, setDate] = useState(new Date(1598051730000));
+  const [mode, setMode] = useState('date');
+  const [show, setShow] = useState(false);
 
   const formInitial: IPostMedicalRegisterDto = {
     dr_name: '',
@@ -46,6 +50,22 @@ const Registration: FunctionComponent<Props> = ({ navigation }) => {
     formInitial,
     validator
   );
+
+  const onDateChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setShow(Platform.OS === 'ios');
+    console.log("currentDate", selectedDate   )
+    setDate(currentDate);
+  };
+
+  const showMode = currentMode => {
+    setShow(true);
+    setMode(currentMode);
+  };
+
+  const showDatepicker = () => {
+    showMode('time');
+  };
 
   useEffect(() => {
     if (net_error) {
@@ -95,11 +115,30 @@ const Registration: FunctionComponent<Props> = ({ navigation }) => {
                 errorMessage={errors.specialist_in}
               />
             </Item>
+            <Item style={styles.usernameWrap}  onPress={showDatepicker}  >
+              <Icon style={[styles.doctorNameIcon, { fontSize: 22 }]} type="FontAwesome" name="calendar" />
+              <Input style={[styles.doctorNameInput, { lineHeight: 20, paddingTop: 20 }]}  placeholder='Start Time' disabled />
+            </Item>
+            <Item style={styles.usernameWrap} onPress={showDatepicker}  >
+              <Icon style={[styles.doctorNameIcon, { fontSize: 22 }]} type="FontAwesome" name="calendar" />
+              <Input style={[styles.doctorNameInput, { lineHeight: 20, paddingTop: 20 }]}  placeholder='End Time' disabled />
+            </Item>
+            {show && (
+            <DateTimePicker
+              testID="dateTimePicker"
+              timeZoneOffsetInMinutes={0}
+              value={date}
+              mode={mode}
+              is24Hour={true}
+              display="default"
+              onChange={onDateChange}
+            />
+          )}
             <Item style={styles.usernameWrap}>
               <Icon name="person" style={styles.inputIcon} />
               <Input
                 spellCheck={false}
-                placeholder="Open_days"
+                placeholder="Open days"
                 value={values.open_days}
                 onChangeText={text => onChange(text, 'open_days')}
                 errorStyle={{ color: 'red' }}
@@ -115,6 +154,51 @@ const Registration: FunctionComponent<Props> = ({ navigation }) => {
                 onChangeText={text => onChange(text, 'dr_notes')}
                 errorStyle={{ color: 'red' }}
                 errorMessage={errors.dr_notes}
+              />
+            </Item>
+            <Item style={styles.usernameWrap}>
+              <Icon name="person" style={styles.inputIcon} />
+              <Input
+                spellCheck={false}
+                placeholder="District"
+                value={values.district}
+                onChangeText={text => onChange(text, 'district')}
+                errorStyle={{ color: 'red' }}
+                errorMessage={errors.district}
+              />
+            </Item>
+
+            <Item style={styles.usernameWrap}>
+              <Icon name="person" style={styles.inputIcon} />
+              <Input
+                spellCheck={false}
+                placeholder="City"
+                value={values.city}
+                onChangeText={text => onChange(text, 'city')}
+                errorStyle={{ color: 'red' }}
+                errorMessage={errors.city}
+              />
+            </Item>
+            <Item style={styles.usernameWrap}>
+              <Icon name="person" style={styles.inputIcon} />
+              <Input
+                spellCheck={false}
+                placeholder="Registration No"
+                value={values.reg_no}
+                onChangeText={text => onChange(text, 'reg_no')}
+                errorStyle={{ color: 'red' }}
+                errorMessage={errors.reg_no}
+              />
+            </Item>
+            <Item style={styles.usernameWrap}>
+              <Icon name="person" style={styles.inputIcon} />
+              <Input
+                spellCheck={false}
+                placeholder="Center Name"
+                value={values.center_name}
+                onChangeText={text => onChange(text, 'center_name')}
+                errorStyle={{ color: 'red' }}
+                errorMessage={errors.center_name}
               />
             </Item>
             <Item style={styles.usernameWrap}>
@@ -139,30 +223,6 @@ const Registration: FunctionComponent<Props> = ({ navigation }) => {
                 onChangeText={text => onChange(text, 'password')}
                 errorStyle={{ color: 'red' }}
                 errorMessage={errors.password}
-              />
-            </Item>
-
-            <Item style={styles.usernameWrap}>
-              <Icon name="person" style={styles.inputIcon} />
-              <Input
-                spellCheck={false}
-                placeholder="District"
-                value={values.district}
-                onChangeText={text => onChange(text, 'district')}
-                errorStyle={{ color: 'red' }}
-                errorMessage={errors.district}
-              />
-            </Item>
-
-            <Item style={styles.usernameWrap}>
-              <Icon name="person" style={styles.inputIcon} />
-              <Input
-                spellCheck={false}
-                placeholder="City"
-                value={values.city}
-                onChangeText={text => onChange(text, 'city')}
-                errorStyle={{ color: 'red' }}
-                errorMessage={errors.city}
               />
             </Item>
             <Button

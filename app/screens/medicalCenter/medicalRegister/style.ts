@@ -56,6 +56,20 @@ export default StyleSheet.create({
     color: Colors.secondaryBtn,
     fontWeight: 'bold'
   },
+  doctorNameIcon:{
+    color:Colors.darkGray,
+    marginTop:9,
+    fontSize:26,
+  },
+  doctorInputrow:{
+    // borderWidth:1
+    // borderBottomColor:Colors.primaryBtn,
+  },
+  doctorNameInput:{
+    paddingTop:0,
+    color:Colors.darkGray
+    //paddingBottom:0,
+  },
   button: {
     marginTop: 20,
     width: '70%'
