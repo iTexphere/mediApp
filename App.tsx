@@ -16,7 +16,7 @@ import {
   DrawerContentScrollView,
   DrawerItem
 } from '@react-navigation/drawer';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/AntDesign';
 import Colors from './app/utils/Colors';
 
 import Login from './app/screens/patient/login';
@@ -50,15 +50,15 @@ const HomeStackScreen = () => {
         component={Registration}
       />
       <HomeStack.Screen
-       name="Auth"
-       options={{ headerShown: false }}
-       component={MedicalLogin}
-     />
-     <HomeStack.Screen
-       name="MedicalRegistration"
-       options={{ headerShown: false }}
-       component={MedicalRegistration}
-     />
+        name="Auth"
+        options={{ headerShown: false }}
+        component={MedicalLogin}
+      />
+      <HomeStack.Screen
+        name="MedicalRegistration"
+        options={{ headerShown: false }}
+        component={MedicalRegistration}
+      />
       <HomeStack.Screen
         name="Home"
         options={{ headerShown: false }}
@@ -117,6 +117,18 @@ const CustomDrawerContent: React.SFC<any> = props => {
         activeTintColor={Colors.primaryBtn}
         focused={props.state.index === 0 ? true : false}
         onPress={() => /*props.navigation.navigate('Search')*/ console.log()}
+      />
+      <DrawerItem
+        label="Logout"
+        icon={({ focused, color, size }) => (
+          <Icon color={color} name={'logout'} style={styles.drawerIconSize} />
+        )}
+        activeTintColor={Colors.primaryBtn}
+        focused={props.state.index === 0 ? true : false}
+        onPress={() => {
+
+          props.navigation.navigate('Login')
+        }}
       />
       {/* <DrawerItem
         label="Home"

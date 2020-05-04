@@ -86,7 +86,7 @@ const Registration: FunctionComponent<Props> = ({ navigation }) => {
           {/* logo */}
           <View style={styles.logoArea}>
             <Image
-              source={require('../../../assests/logo1.png')}
+              source={require('../../../assests/medicalcenter.png')}
               style={{ height: 200, width: 200 }}
             />
           </View>
@@ -110,7 +110,7 @@ const Registration: FunctionComponent<Props> = ({ navigation }) => {
                 spellCheck={false}
                 placeholder="Specialist"
                 value={values.specialist_in}
-                onChangeText={text => onChange(text, 'specialist')}
+                onChangeText={text => onChange(text, 'specialist_in')}
                 errorStyle={{ color: 'red' }}
                 errorMessage={errors.specialist_in}
               />

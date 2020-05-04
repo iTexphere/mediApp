@@ -62,7 +62,7 @@ const MedicalLogin: FunctionComponent<Props> = ({ navigation }) => {
           {/* logo */}
           <View style={styles.logoArea}>
             <Image
-              source={require('../../../assests/logo1.png')}
+              source={require('../../../assests/medicalcenter.png')}
               // source={{uri:'https://via.placeholder.com/100x100.png?text=Logo'}}
               style={{ height: 200, width: 200 }}
             />
