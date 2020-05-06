@@ -93,7 +93,7 @@ const Home: FunctionComponent<{ navigation: any }> = ({ navigation }) => {
       .on('value', (snapshot: any) => {
         setOngoingno(snapshot.val())
       });
-  }, [ongoingno])
+  }, ongoingno)
 
 
   return (
