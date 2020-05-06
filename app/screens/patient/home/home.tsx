@@ -1,4 +1,4 @@
-import React, { useState, FunctionComponent } from 'react';
+import React, { useState, FunctionComponent, useEffect } from 'react';
 import { SafeAreaView, View, StatusBar, FlatList } from 'react-native';
 import styles from './style';
 import EnIcon from 'react-native-vector-icons/Entypo';
@@ -8,6 +8,7 @@ import { ChannelListItem } from '../../../components/ChannelListItem';
 import { BookingColumn } from '../../../components/BookingColumn';
 import { NearbyLocation } from '../../../components/NearbyLocation';
 import { Container, Content, List, Text } from 'native-base';
+import database from '@react-native-firebase/database';
 import Colors from '../../../utils/Colors';
 
 interface IDoctor {
@@ -16,7 +17,13 @@ interface IDoctor {
   description: string;
 }
 
+// interface IFirbase {
+//   issueNo: string;
+//   ongoingno: string;
+// }
+
 const Home: FunctionComponent<{ navigation: any }> = ({ navigation }) => {
+  const [ ongoingno, setOngoingno   ] = useState({});
   const [dataArray, setDataArray] = useState<IDoctor[]>([
     {
       url: 'https://i.picsum.photos/id/91/100/100.jpg',
@@ -79,6 +86,17 @@ const Home: FunctionComponent<{ navigation: any }> = ({ navigation }) => {
       description: 'General Doctor'
     }
   ]);
+
+  useEffect(() => {
+    database()
+      .ref('/MedicalCenter')
+      .on('value', (snapshot: any) => {
+        console.log(' data: ', snapshot.val());
+        setOngoingno(snapshot.val())
+      });
+  }, [ongoingno])
+
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar backgroundColor={Colors.statusBar} barStyle="light-content" />
@@ -113,7 +131,7 @@ const Home: FunctionComponent<{ navigation: any }> = ({ navigation }) => {
         </View>
       </View>
       <View style={styles.bookWrap}>
-        <BookingColumn bookingNo={'25'} ongoingNo={'' + 12} />
+        <BookingColumn bookingNo={'25'} ongoingNo={'' + ongoingno.ongoingno} />
         <NearbyLocation location={'A/30, Srilanka, 100890'} />
       </View>
       <Container>

@@ -67,8 +67,6 @@ const MedicalLogin: FunctionComponent<Props> = ({ navigation }) => {
               style={{ height: 200, width: 200 }}
             />
           </View>
-
-          {/* form */}
           <View style={styles.formArea}>
 
             <View   >
