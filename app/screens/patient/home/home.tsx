@@ -91,7 +91,6 @@ const Home: FunctionComponent<{ navigation: any }> = ({ navigation }) => {
     database()
       .ref('/MedicalCenter')
       .on('value', (snapshot: any) => {
-        console.log(' data: ', snapshot.val());
         setOngoingno(snapshot.val())
       });
   }, [ongoingno])
