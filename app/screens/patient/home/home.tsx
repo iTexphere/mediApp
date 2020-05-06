@@ -89,7 +89,7 @@ const Home: FunctionComponent<{ navigation: any }> = ({ navigation }) => {
 
   useEffect(() => {
     database()
-      .ref('/MedicalCenter')
+      .ref('/7')
       .on('value', (snapshot: any) => {
         setOngoingno(snapshot.val())
       });

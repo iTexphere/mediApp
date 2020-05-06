@@ -26,7 +26,16 @@ import Search from './app/screens/patient/search';
 import Registration from './app/screens/patient/patientRegistration';
 import MedicalLogin from './app/screens/medicalCenter/medicalLogin';
 import MedicalRegistration from './app/screens/medicalCenter/medicalRegister';
+// import database from '@react-native-firebase/database';
 import { rootStackParamList } from './Nav_types';
+
+// database()
+//   .ref('/7')
+//   .set({
+//     issueNo: 7,
+//     ongoingno: 10,
+//   })
+//   .then(() => console.log('Data set.'));
 
 const DrawerNav = createDrawerNavigator();
 
