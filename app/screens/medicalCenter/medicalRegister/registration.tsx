@@ -23,9 +23,12 @@ const Registration: FunctionComponent<Props> = ({ navigation }) => {
 
   const { signUp } = React.useContext(AuthContext);
 
-  const [date, setDate] = useState(new Date(1598051730000));
+  const [start_time, setStartTime] = useState(new Date(1598051730000));
+  const [end_time, setEndTime] = useState(new Date(1598051730000));
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
+  const [mode2, setMode2] = useState('date');
+  const [show2, setShow2] = useState(false);
 
   const formInitial: IPostMedicalRegisterDto = {
     dr_name: '',
@@ -54,11 +57,24 @@ const Registration: FunctionComponent<Props> = ({ navigation }) => {
     validator
   );
 
-  const onDateChange = (event, selectedDate) => {
+  const startTimeChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
     setShow(Platform.OS === 'ios');
-    console.log("currentDate", selectedDate   )
-    setDate(currentDate);
+    const getHours = new Date(currentDate).getHours()
+    const getMins = new Date(currentDate).getMinutes()
+    const exactNum = parseInt(`${getHours}${getMins}`)
+    onChange(exactNum, 'start_time')
+    setStartTime(currentDate);
+  };
+
+  const endTimeChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setShow2(Platform.OS === 'ios');
+    const getHours = new Date(currentDate).getHours()
+    const getMins = new Date(currentDate).getMinutes()
+    const exactNum = parseInt(`${getHours}${getMins}`)
+    onChange(exactNum, 'end_time')
+    setEndTime(currentDate);
   };
 
   const showMode = currentMode => {
@@ -70,12 +86,21 @@ const Registration: FunctionComponent<Props> = ({ navigation }) => {
     showMode('time');
   };
 
+  const showMode2 = currentMode => {
+    setShow2(true);
+    setMode2(currentMode);
+  };
+
+  const showDatepicker2 = () => {
+    showMode2('time');
+  };
+
   useEffect(() => {
     if (net_error) {
       alert(net_error);
     }
     if (response && response.status == 'success') {
-      navigation.navigate('Home');
+      // navigation.navigate('Home');
     } else if (response && response.status.length > 0) {
       alert('Invalid username or password.');
     }
@@ -118,25 +143,36 @@ const Registration: FunctionComponent<Props> = ({ navigation }) => {
                 errorMessage={errors.specialist_in}
               />
             </Item>
-            <Item style={styles.usernameWrap}  onPress={showDatepicker}  >
-              <Icon style={[styles.doctorNameIcon, { fontSize: 22 }]} type="FontAwesome" name="calendar" />
-              <Input style={[styles.doctorNameInput, { lineHeight: 20, paddingTop: 20 }]}  placeholder='Start Time' disabled />
-            </Item>
             <Item style={styles.usernameWrap} onPress={showDatepicker}  >
               <Icon style={[styles.doctorNameIcon, { fontSize: 22 }]} type="FontAwesome" name="calendar" />
-              <Input style={[styles.doctorNameInput, { lineHeight: 20, paddingTop: 20 }]}  placeholder='End Time' disabled />
+              <Input style={[styles.doctorNameInput, { lineHeight: 20, paddingTop: 20 }]} defaultValue={start_time.toLocaleTimeString()} placeholder='Start Time' disabled />
+            </Item>
+            <Item style={styles.usernameWrap} onPress={showDatepicker2}  >
+              <Icon style={[styles.doctorNameIcon, { fontSize: 22 }]} type="FontAwesome" name="calendar" />
+              <Input style={[styles.doctorNameInput, { lineHeight: 20, paddingTop: 20 }]} defaultValue={end_time.toLocaleTimeString()} placeholder='End Time' disabled />
             </Item>
             {show && (
-            <DateTimePicker
-              testID="dateTimePicker"
-              timeZoneOffsetInMinutes={0}
-              value={date}
-              mode={mode}
-              is24Hour={true}
-              display="default"
-              onChange={onDateChange}
-            />
-          )}
+              <DateTimePicker
+                testID="dateTimePicker"
+                timeZoneOffsetInMinutes={0}
+                value={start_time}
+                mode={mode}
+                is24Hour={true}
+                display="default"
+                onChange={startTimeChange}
+              />
+            )}
+            {show2 && (
+              <DateTimePicker
+                testID="dateTimePicker"
+                timeZoneOffsetInMinutes={0}
+                value={end_time}
+                mode={mode2}
+                is24Hour={true}
+                display="default"
+                onChange={endTimeChange}
+              />
+            )}
             <Item style={styles.usernameWrap}>
               <Icon name="person" style={styles.inputIcon} />
               <Input

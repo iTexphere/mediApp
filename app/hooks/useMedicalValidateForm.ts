@@ -9,7 +9,7 @@ export const useValidateForm = (
   const [values, setValues] = useState(initalState);
   const [errors, setErrors] = useState(<any>{});
 
-  const onChange = (content: string, field: string) => {
+  const onChange = (content: any, field: string) => {
     setValues({ ...values, [field]: content });
   };
 
