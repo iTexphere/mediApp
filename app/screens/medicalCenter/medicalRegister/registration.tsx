@@ -8,7 +8,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import { IPostMedicalRegisterDto } from '../../../src/dto';
 import { RootState } from '../../../src/store/types';
 import { Props } from '../../../../Nav_types';
-
+import { AuthContext } from "../../../../App";
 import Loader from '../../../components/Loader/index';
 import { useValidateForm } from '../../../hooks/useMedicalValidateForm';
 import styles from './style';
@@ -20,6 +20,8 @@ const Registration: FunctionComponent<Props> = ({ navigation }) => {
   const response = useSelector((state: RootState) => state.medicalReg.data);
   const net_error = useSelector((state: RootState) => state.medicalReg.error);
   const disable = useSelector((state: RootState) => state.medicalReg.disable);
+
+  const { signUp } = React.useContext(AuthContext);
 
   const [date, setDate] = useState(new Date(1598051730000));
   const [mode, setMode] = useState('date');
@@ -43,6 +45,7 @@ const Registration: FunctionComponent<Props> = ({ navigation }) => {
 
   const handleSubmit = (payload: IPostMedicalRegisterDto) => {
     dispatch(medicalRegistration(payload));
+    signUp(payload);
   };
 
   const { onChange, onSubmit, errors, values } = useValidateForm(

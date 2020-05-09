@@ -4,6 +4,7 @@ import styles from './style';
 import { Container, Content, Item, Input, Icon, Button } from 'native-base';
 import { useSelector, useDispatch } from 'react-redux';
 import { medicalAuth } from '../../../src/store/actions/index';
+import { AuthContext } from "../../../../App";
 import Loader from '../../../components/Loader/index';
 import { RootState } from '../../../src/store/types';
 import { Props } from '../../../../Nav_types';
@@ -17,12 +18,14 @@ const MedicalLogin: FunctionComponent<Props> = ({ navigation }) => {
   const [username, setUsername] = useState('jagath');
   const [password, setPassword] = useState('12345');
 
+  const { signIn } = React.useContext(AuthContext);
+
   useEffect(() => {
     if (error) {
       alert(error);
     }
     if (response && response.status == 'success') {
-      navigation.navigate('Home');
+      // navigation.navigate('Home');
     } else if (response && response.status.length > 0) {
       alert('Invalid username or password.');
     }
@@ -51,6 +54,7 @@ const MedicalLogin: FunctionComponent<Props> = ({ navigation }) => {
 
     if (!isInvalid) {
       await dispatch(medicalAuth(payload));
+      signIn(payload)
     }
   };
 
