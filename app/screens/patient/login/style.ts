@@ -5,7 +5,7 @@ export default StyleSheet.create({
   loginWrap: {
     // borderWidth:1,
     backgroundColor: Colors.white,
-    //flex: 1,
+    // flex: 1,
     // justifyContent:'space-around',
     //alignItems: 'flex-end',
   },
@@ -70,10 +70,10 @@ export default StyleSheet.create({
     fontWeight: "bold",
   },
   medicalAuth: {
-    position: "absolute",
-    width: 200,
-    bottom: 20,
-    left: "35%",
-    marginLeft: -25,
+    flex: 1,
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    height: 100
   },
 });

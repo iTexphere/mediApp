@@ -56,6 +56,7 @@ export const registration = (
   dispatch(registrationRequest());
   try {
     const res = await API.post('patient/signup', data);
+    storeData(res.data)
     dispatch(registrationSuccess(res.data));
   } catch (err) {
     dispatch(registrationFailure(err.message || err || 'Something Went Wrong'));

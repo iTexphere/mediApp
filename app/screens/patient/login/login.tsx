@@ -27,7 +27,7 @@ const Login: FunctionComponent<Props> = ({ navigation }) => {
       alert(error);
     }
     if (response && response.status == 'success') {
-      
+
     } else if (response && response.status.length > 0) {
       alert('Invalid username or password.');
     }
@@ -54,7 +54,7 @@ const Login: FunctionComponent<Props> = ({ navigation }) => {
     if (!isInvalid) {
       await dispatch(auth(payload));
       signIn(payload)
-      
+
     }
   };
 
@@ -119,12 +119,12 @@ const Login: FunctionComponent<Props> = ({ navigation }) => {
             </View>
           </View>
         </View>
-
+        <View style={styles.medicalAuth}  >
+          <Text onPress={() => navigation.navigate('Auth')}  >Login with Medical center</Text>
+        </View>
       </Content>
 
-      <View style={styles.medicalAuth}  >
-        <Text onPress={() => navigation.navigate('Auth')}  >Login with Medical center</Text>
-      </View>
+
 
 
     </Container>
