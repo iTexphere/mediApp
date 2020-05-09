@@ -50,7 +50,7 @@ const MedicalLogin: FunctionComponent<Props> = ({ navigation }) => {
       password: password
     };
 
-    
+
 
     if (!isInvalid) {
       await dispatch(medicalAuth(payload));
@@ -120,6 +120,9 @@ const MedicalLogin: FunctionComponent<Props> = ({ navigation }) => {
               </Text>
             </View>
           </View>
+        </View>
+        <View style={styles.medicalAuth}  >
+          <Text onPress={() => navigation.navigate('Login')}  >Login as a user</Text>
         </View>
       </Content>
     </Container>

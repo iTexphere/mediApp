@@ -1,5 +1,5 @@
 import React, { useEffect, FunctionComponent, useState } from 'react';
-import { View, Image, Text, Platform } from 'react-native';
+import { View, Image, Text, Platform, ToastAndroid } from 'react-native';
 import { Container, Content, Item, Icon } from 'native-base';
 import { Input, Button } from 'react-native-elements';
 import { useSelector, useDispatch } from 'react-redux';
@@ -13,6 +13,21 @@ import Loader from '../../../components/Loader/index';
 import { useValidateForm } from '../../../hooks/useMedicalValidateForm';
 import styles from './style';
 import { validator } from './validator';
+
+
+const Toast = ({ visible, message }) => {
+  if (visible) {
+    ToastAndroid.showWithGravityAndOffset(
+      message,
+      ToastAndroid.LONG,
+      ToastAndroid.BOTTOM,
+      25,
+      50
+    );
+    return null;
+  }
+  return null;
+};
 
 const Registration: FunctionComponent<Props> = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -28,6 +43,7 @@ const Registration: FunctionComponent<Props> = ({ navigation }) => {
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
   const [mode2, setMode2] = useState('date');
+  const [visible, setVisible] = useState(false)
   const [show2, setShow2] = useState(false);
 
   const formInitial: IPostMedicalRegisterDto = {
@@ -48,7 +64,7 @@ const Registration: FunctionComponent<Props> = ({ navigation }) => {
 
   const handleSubmit = (payload: IPostMedicalRegisterDto) => {
     dispatch(medicalRegistration(payload));
-    signUp(payload);
+    // signUp(payload);
   };
 
   const { onChange, onSubmit, errors, values } = useValidateForm(
@@ -95,12 +111,15 @@ const Registration: FunctionComponent<Props> = ({ navigation }) => {
     showMode2('time');
   };
 
+  useEffect(() => setVisible(false), [visible]);
+
   useEffect(() => {
     if (net_error) {
       alert(net_error);
     }
     if (response && response.status == 'success') {
-      // navigation.navigate('Home');
+      setVisible(true);
+      navigation.navigate('Auth');
     } else if (response && response.status.length > 0) {
       alert('Invalid username or password.');
     }
@@ -109,6 +128,7 @@ const Registration: FunctionComponent<Props> = ({ navigation }) => {
   return (
     <Container style={styles.loginWrap}>
       <Loader loading={disable} />
+      <Toast visible={visible} message="Your account has been created, We will contact you soon" />
       <Content disableKBDismissScroll={true}>
         <View style={styles.loginInnerWrap}>
           {/* logo */}

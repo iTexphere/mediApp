@@ -68,5 +68,12 @@ export default StyleSheet.create({
   signupTxt: {
     color: Colors.secondaryBtn,
     fontWeight: 'bold'
-  }
+  },
+  medicalAuth: {
+    flex: 1,
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    height: 80
+  },
 });
