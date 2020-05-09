@@ -18,29 +18,6 @@ import AsyncStorage from "@react-native-community/async-storage";
 
 
 const Search = () => {
-  const [dataArray, setDataArray] = useState([
-    {
-      url: 'https://i.picsum.photos/id/91/100/100.jpg',
-      title: 'Dr. Amit Goswami',
-      description: 'Phychologist'
-    },
-    {
-      url: 'https://i.picsum.photos/id/91/100/100.jpg',
-      title: 'Dr. Utpal Das',
-      description: 'Physician'
-    },
-    {
-      url: 'https://i.picsum.photos/id/91/100/100.jpg',
-      title: 'Dr. Villanian Desug',
-      description: 'Gynocholist'
-    },
-    {
-      url: 'https://i.picsum.photos/id/91/100/100.jpg',
-      title: 'Dr. Sunil Guha',
-      description: 'General Doctor'
-    },
-
-  ])
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
