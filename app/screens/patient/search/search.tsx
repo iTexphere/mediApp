@@ -74,7 +74,6 @@ const Search = () => {
         // value previously stored
         const parse = JSON.parse(value)
         console.log("value", parse.access_token);
-        setCity(parse.info.city)
         setToken(parse.access_token)
       }
     } catch (e) {
@@ -96,6 +95,7 @@ const Search = () => {
           headers: { 'Authorization': `Bearer ${parse.access_token}` }
         };
 
+        // setCity(parse.info.city)
         const getDoctors = await axios.post(`http://likesgun.com/api/v1/patient/src`, { dr_name, center_name, city }, config);
         // const json = await getDoctors.json();
         setDoctors(getDoctors.data);

@@ -8,6 +8,7 @@ import { registration } from '../../../src/store/actions/index';
 import { IPostRegisterDto } from '../../../src/dto';
 import { RootState } from '../../../src/store/types';
 import { Props } from '../../../../Nav_types';
+import { AuthContext } from "../../../../App";
 
 import Loader from '../../../components/Loader/index';
 import { useValidateForm } from '../../../hooks/useValidateForm';
@@ -20,6 +21,8 @@ const Registration: FunctionComponent<Props> = ({ navigation }) => {
   const response = useSelector((state: RootState) => state.reg.data);
   const net_error = useSelector((state: RootState) => state.reg.error);
   const disable = useSelector((state: RootState) => state.reg.disable);
+
+  const { signUp } = React.useContext(AuthContext);
 
   const formInitial: IPostRegisterDto = {
     first_name: '',
@@ -36,6 +39,7 @@ const Registration: FunctionComponent<Props> = ({ navigation }) => {
 
   const handleSubmit = (payload: IPostRegisterDto) => {
     dispatch(registration(payload));
+    signUp(payload);
   };
 
   const { onChange, onSubmit, errors, values } = useValidateForm(
