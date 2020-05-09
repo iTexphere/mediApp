@@ -21,8 +21,8 @@ interface IChannelListItem {
 }
 
 export const ChannelListItem: React.SFC<IChannelListItem> = ({
-  title = 'Default title',
-  description = 'default description',
+  title = '',
+  description = '',
   url,
   rightBtnTxt = 'Channel',
   onPressChannelBtn,

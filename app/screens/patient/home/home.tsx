@@ -130,7 +130,7 @@ const Home: FunctionComponent<{ navigation: any }> = ({ navigation }) => {
         </View>
       </View>
       <View style={styles.bookWrap}>
-        <BookingColumn bookingNo={'25'} ongoingNo={'' + ongoingno.ongoingno} />
+        <BookingColumn bookingNo={'25'} ongoingNo={'' + ongoingno ? ongoingno.ongoingno : 0} />
         <NearbyLocation location={'A/30, Srilanka, 100890'} />
       </View>
       <Container>

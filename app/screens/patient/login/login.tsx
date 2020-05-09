@@ -1,9 +1,10 @@
-import React, { useState, useEffect, FunctionComponent } from 'react';
+import React, { useState, useEffect, FunctionComponent, useContext } from 'react';
 import { View, Image, Text, TouchableOpacity } from 'react-native';
 import styles from './style';
 import { Container, Content, Item, Input, Icon, Button } from 'native-base';
 import { useSelector, useDispatch } from 'react-redux';
 import { auth } from '../../../src/store/actions/index';
+import { AuthContext } from "../../../../App";
 
 import Loader from '../../../components/Loader/index';
 import { RootState } from '../../../src/store/types';
@@ -19,12 +20,14 @@ const Login: FunctionComponent<Props> = ({ navigation }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
+  const { signIn } = React.useContext(AuthContext);
+
   useEffect(() => {
     if (error) {
       alert(error);
     }
     if (response && response.status == 'success') {
-      navigation.navigate('Home');
+      
     } else if (response && response.status.length > 0) {
       alert('Invalid username or password.');
     }
@@ -50,6 +53,8 @@ const Login: FunctionComponent<Props> = ({ navigation }) => {
     };
     if (!isInvalid) {
       await dispatch(auth(payload));
+      signIn(payload)
+      
     }
   };
 

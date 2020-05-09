@@ -18,6 +18,16 @@ import {
   IRegisterFailer,
   RootState
 } from '../types';
+import AsyncStorage from "@react-native-community/async-storage";
+
+const storeData = async (data) => {
+  try {
+    await AsyncStorage.setItem("session", JSON.stringify(data));
+  } catch (e) {
+    // saving error
+    console.log("eeeeeee", e);
+  }
+};
 
 export const auth = (
   data: IPostLoginDto
@@ -29,6 +39,7 @@ export const auth = (
   dispatch(loginRequest());
   try {
     const res = await API.post(`/patient/signin?user_name=${data.user_name}&password=${data.password}`);
+    storeData(res.data);
     dispatch(loginSuccess(res.data));
   } catch (err) {
     dispatch(loginFailure(err.message || err || 'Something Went Wrong'));
