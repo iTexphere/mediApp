@@ -62,9 +62,6 @@ const Search = () => {
 
 
     const fetchDoctors = async () => {
-
-
-
       try {
         const value = await AsyncStorage.getItem('session');
         const parse = JSON.parse(value)
@@ -106,7 +103,7 @@ const Search = () => {
     } catch (err) {
       setLoading(false)
       // Alert.alert()
-      alert(err)
+      // alert(err)
     }
   }
 
