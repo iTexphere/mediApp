@@ -21,6 +21,9 @@ interface IDoctor {
 
 const Channel: FunctionComponent<{ navigation: any, route: any }> = ({ navigation, route }) => {
     const [loading, setLoading] = useState<boolean>(false)
+    const [ issueNo, setIssueNo  ] = useState<any>({});
+
+    
 
     const handleBooking = async () => {
         const { user_id } = route.params;
@@ -34,9 +37,8 @@ const Channel: FunctionComponent<{ navigation: any, route: any }> = ({ navigatio
                     headers: { 'Authorization': `Bearer ${parse.access_token}` }
                 };
                 const getBook = axios.get(`http://likesgun.com/api/v1/patient/booking/${user_id}`, config)
-
-                console.log("getBook", getBook)
                 setLoading(false)
+                navigation.goBack();
             }
         } catch (err) {
             setLoading(false)
@@ -44,7 +46,15 @@ const Channel: FunctionComponent<{ navigation: any, route: any }> = ({ navigatio
         }
     }
 
-    const { dr_name, specialist_in, center_name, dr_notes, reg_no, issuing, city, created_at } = route.params;
+    useEffect(() => {
+        database()
+          .ref('/7')
+          .on('value', (snapshot: any) => {
+            setIssueNo(snapshot.val())
+          });
+      }, issueNo)
+
+    const { dr_name, specialist_in, center_name, dr_notes, reg_no, city, created_at } = route.params;
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <StatusBar backgroundColor={Colors.statusBar} barStyle="light-content" />
@@ -67,7 +77,7 @@ const Channel: FunctionComponent<{ navigation: any, route: any }> = ({ navigatio
                 <View style={{ margin: 20 }} >
                     <Text style={styles.textWrap2}  >Date: {new Date(created_at).toLocaleDateString()}</Text>
                     <Text style={styles.textWrap2} >Sessioin Start time: 5:00pm</Text>
-                    <Text style={styles.textWrap2}  >Issuing Number: {issuing}</Text>
+                    <Text style={styles.textWrap2}  >Issuing Number: {issueNo.issueNo}</Text>
                     <Text style={styles.textWrap2} >City: {city}</Text>
                     <Text style={styles.textWrap2}  >Dr Fee: Rs. 500.00</Text>
                     <Text style={styles.textWrap2}  >App Fee: Rs. 25.00</Text>

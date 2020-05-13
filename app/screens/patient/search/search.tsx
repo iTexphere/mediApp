@@ -215,7 +215,7 @@ const Search = () => {
             title={item.item.dr_name}
             description={item.item.specialist_in}
             url={`https://i.picsum.photos/id/91/100/100.jpg`}
-            onPressChannelBtn={() => alert('channel route screen')}
+            onPressChannelBtn={() => navigation.navigate('Channel', item.item)}
 
           />
         }}
