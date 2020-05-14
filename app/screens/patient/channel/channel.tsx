@@ -36,13 +36,20 @@ const Channel: FunctionComponent<{ navigation: any, route: any }> = ({ navigatio
                 const config = {
                     headers: { 'Authorization': `Bearer ${parse.access_token}` }
                 };
-                const getBook = axios.get(`http://likesgun.com/api/v1/patient/booking/${user_id}`, config)
+                
+                const getBook = await axios.get(`http://likesgun.com/api/v1/patient/booking/${user_id}`, config)
+                
+                // console.log("dataaaaaaaaaa", getBook.data  )
                 setLoading(false)
-                navigation.goBack();
+                const data = getBook.data.data
+
+                
+                alert( `Your booking is recorded and booking number is ${data.booking_no}` )
             }
         } catch (err) {
             setLoading(false)
-            console.log("err", err)
+            alert("You already have a booking here, Please try again tomorrow")
+            console.log("errrrrrrrr", err)
         }
     }
 
