@@ -30,6 +30,7 @@ import MedicalRegistration from './app/screens/medicalCenter/medicalRegister';
 import AsyncStorage from "@react-native-community/async-storage";
 // import database from '@react-native-firebase/database';
 import { rootStackParamList } from './Nav_types';
+import Channel from './app/screens/patient/channel';
 
 export const AuthContext = createContext();
 
@@ -82,6 +83,11 @@ const HomeStackScreen = () => {
         name="Home"
         options={{ headerShown: false }}
         component={Home}
+      />
+      <HomeStack.Screen
+        name="Channel"
+        options={{ headerShown: false }}
+        component={Channel}
       />
       <HomeStack.Screen
         name="Search"

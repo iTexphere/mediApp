@@ -113,7 +113,7 @@ const Home: FunctionComponent<{ navigation: any }> = ({ navigation }) => {
                   title={item.dr_name}
                   description={item.specialist_in}
                   url={`https://i.picsum.photos/id/91/100/100.jpg`}
-                  onPressChannelBtn={() => alert('channel route screen')}
+                  onPressChannelBtn={() => navigation.navigate('Channel', item) }
                 />
               )}
             />  }
