@@ -36,7 +36,7 @@ const Booking: FunctionComponent<{ navigation: any, route: any }> = ({ navigatio
 
                 const data = getBookings.data.data
 
-                setBooking(data[data.length - 1])
+                setBooking(data[0])
                 setLoading(false)
                 // console.log("data", data)
                 // alert( `Your booking is recorded and booking number is ${data.booking_no}` )

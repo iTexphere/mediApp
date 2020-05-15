@@ -2,11 +2,11 @@ import {
   ILoginResponseDto,
   IRegisterResponseDto,
   IPostLoginDto,
-  IPostRegisterDto
-} from '../../dto';
-import { ThunkAction } from 'redux-thunk';
-import { AnyAction } from 'redux';
-import { AxiosInstance } from 'axios';
+  IPostRegisterDto,
+} from "../../dto";
+import { ThunkAction } from "redux-thunk";
+import { AnyAction } from "redux";
+import { AxiosInstance } from "axios";
 
 import {
   ActionTypes,
@@ -16,8 +16,8 @@ import {
   IRegisterRequest,
   IRegisterSuccess,
   IRegisterFailer,
-  RootState
-} from '../types';
+  RootState,
+} from "../types";
 import AsyncStorage from "@react-native-community/async-storage";
 
 const storeData = async (data) => {
@@ -38,16 +38,19 @@ export const auth = (
 ) => {
   dispatch(loginRequest());
   try {
-    const res = await API.post(`/patient/signin?user_name=${data.user_name}&password=${data.password}`);
+    const res = await API.post(
+      `/patient/signin?user_name=${data.user_name}&password=${data.password}`
+    );
     storeData(res.data);
     dispatch(loginSuccess(res.data));
   } catch (err) {
-    dispatch(loginFailure(err.message || err || 'Something Went Wrong'));
+    dispatch(loginFailure(err.message || err || "Something Went Wrong"));
   }
 };
 
 export const registration = (
-  data: IPostRegisterDto
+  data: IPostRegisterDto,
+  cb: any
 ): ThunkAction<void, RootState, AxiosInstance, AnyAction> => async (
   dispatch,
   state,
@@ -55,38 +58,39 @@ export const registration = (
 ) => {
   dispatch(registrationRequest());
   try {
-    const res = await API.post('patient/signup', data);
-    storeData(res.data)
+    const res = await API.post("patient/signup", JSON.stringify(data));
+    storeData(res.data);
     dispatch(registrationSuccess(res.data));
+    cb();
   } catch (err) {
-    dispatch(registrationFailure(err.message || err || 'Something Went Wrong'));
+    dispatch(registrationFailure(err.message || err || "Something Went Wrong"));
   }
 };
 
 const loginRequest = (): ILoginRequest => ({
-  type: ActionTypes.LOGIN_REQUEST
+  type: ActionTypes.LOGIN_REQUEST,
 });
 
 const loginSuccess = (data: ILoginResponseDto): ILoginSuccess => ({
   type: ActionTypes.LOGIN_SUCCESS,
-  payload: data
+  payload: data,
 });
 
 const loginFailure = (error: string): ILoginFailed => ({
   type: ActionTypes.LOGIN_FAILURE,
-  payload: error
+  payload: error,
 });
 
 const registrationRequest = (): IRegisterRequest => ({
-  type: ActionTypes.REGISTRATION_REQUEST
+  type: ActionTypes.REGISTRATION_REQUEST,
 });
 
 const registrationSuccess = (data: IRegisterResponseDto): IRegisterSuccess => ({
   type: ActionTypes.REGISTRATION_SUCCESS,
-  payload: data
+  payload: data,
 });
 
 const registrationFailure = (error: string): IRegisterFailer => ({
   type: ActionTypes.REGISTRATION_FAILURE,
-  payload: error
+  payload: error,
 });

@@ -25,21 +25,23 @@ const Registration: FunctionComponent<Props> = ({ navigation }) => {
   const { signUp } = React.useContext(AuthContext);
 
   const formInitial: IPostRegisterDto = {
-    first_name: '',
-    last_name: '',
-    user_name: '',
-    password: '',
-    nic: '',
-    email: '',
-    mobile_number: '',
-    city: '',
-    district: '',
+    first_name: 'test',
+    last_name: 'test',
+    user_name: 'test1',
+    password: '123456',
+    nic: '22344561239',
+    email: 'test@gmail.com',
+    mobile_number: '0715356999',
+    city: 'Malabe',
+    district: 'abc',
     role: 'patient'
   };
 
   const handleSubmit = (payload: IPostRegisterDto) => {
-    dispatch(registration(payload));
-    signUp(payload);
+    dispatch(registration(payload, () => {
+      signUp(payload)
+    }));
+    
   };
 
   const { onChange, onSubmit, errors, values } = useValidateForm(
@@ -53,7 +55,7 @@ const Registration: FunctionComponent<Props> = ({ navigation }) => {
       alert(net_error);
     }
     if (response && response.status == 'success') {
-      navigation.navigate('Home');
+      // navigation.navigate('Home');
     } else if (response && response.status.length > 0) {
       alert('Invalid username or password.');
     }
