@@ -23,6 +23,7 @@ import Login from './app/screens/patient/login';
 import Home from './app/screens/patient/home';
 //import Details from './app/screens/details';
 import Search from './app/screens/patient/search';
+import Booking from './app/screens/patient/myBookings/booking';
 import Loader from "./app/components/Loader";
 import Registration from './app/screens/patient/patientRegistration';
 import MedicalLogin from './app/screens/medicalCenter/medicalLogin';
@@ -90,6 +91,11 @@ const HomeStackScreen = () => {
         component={Channel}
       />
       <HomeStack.Screen
+        name="Booking"
+        options={{ headerShown: false }}
+        component={Booking}
+      />
+      <HomeStack.Screen
         name="Search"
         options={{ headerStyle: { backgroundColor: Colors.headerBackground } }}
         component={Search}
@@ -142,7 +148,7 @@ const CustomDrawerContent: React.SFC<any> = props => {
         )}
         activeTintColor={Colors.primaryBtn}
         focused={props.state.index === 0 ? true : false}
-        onPress={() => /*props.navigation.navigate('Search')*/ console.log()}
+        onPress={() => props.navigation.navigate('Booking')}
       />
       <DrawerItem
         label="Logout"
