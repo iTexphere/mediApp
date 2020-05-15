@@ -26,7 +26,7 @@ const Channel: FunctionComponent<{ navigation: any, route: any }> = ({ navigatio
     
 
     const handleBooking = async () => {
-        const { user_id } = route.params;
+        const { id } = route.params;
         setLoading(true)
         try {
 
@@ -37,7 +37,7 @@ const Channel: FunctionComponent<{ navigation: any, route: any }> = ({ navigatio
                     headers: { 'Authorization': `Bearer ${parse.access_token}` }
                 };
                 
-                const getBook = await axios.get(`http://likesgun.com/api/v1/patient/booking/${user_id}`, config)
+                const getBook = await axios.get(`http://likesgun.com/api/v1/patient/booking/${id}`, config)
                 
                 // console.log("dataaaaaaaaaa", getBook.data  )
                 setLoading(false)
