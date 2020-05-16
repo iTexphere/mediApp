@@ -62,7 +62,7 @@ const Home: FunctionComponent<{ navigation: any, firebase: any }> = ({ navigatio
 
     fetchData();
 
-  }, [])
+  }, [booking])
 
   useEffect(() => {
     if (booking.medical) {
