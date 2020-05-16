@@ -48,7 +48,7 @@ const Home: FunctionComponent<{ navigation: any, firebase: any }> = ({ navigatio
 
           const data = getBookings.data.data
 
-          setBooking(data[data.length - 1])
+          setBooking(data[0])
           setCity(parse.user_info.info.city)
           setDoctors(getDoctors.data.data);
           setLoading(false);
