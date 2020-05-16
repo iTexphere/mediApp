@@ -38,12 +38,9 @@ const Booking: FunctionComponent<{ navigation: any, route: any }> = ({ navigatio
 
                 setBooking(data[0])
                 setLoading(false)
-                // console.log("data", data)
-                // alert( `Your booking is recorded and booking number is ${data.booking_no}` )
             }
         } catch (err) {
             setLoading(false)
-            // alert("You already have a booking here, Please try again tomorrow")
             console.log("errrrrrrrr", err)
         }
     }
@@ -65,14 +62,11 @@ const Booking: FunctionComponent<{ navigation: any, route: any }> = ({ navigatio
 
                     const data = getBookings.data.data
 
-                    setBooking(data[data.length - 1])
+                    setBooking(data[0])
                     setLoading(false)
-                    // console.log("data", data)
-                    // alert( `Your booking is recorded and booking number is ${data.booking_no}` )
                 }
             } catch (err) {
                 setLoading(false)
-                // alert("You already have a booking here, Please try again tomorrow")
                 console.log("errrrrrrrr", err)
             }
         }
@@ -82,12 +76,14 @@ const Booking: FunctionComponent<{ navigation: any, route: any }> = ({ navigatio
     }, [])
 
     useEffect(() => {
-        database()
-            .ref('/7')
-            .on('value', (snapshot: any) => {
-                setIssueNo(snapshot.val())
-            });
-    }, issueNo)
+        if (booking.medical) {
+            database()
+                .ref(`/${booking.medical.id}`)
+                .on('value', (snapshot: any) => {
+                    setIssueNo(snapshot.val())
+                });
+        }
+    }, [database, booking])
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
@@ -105,7 +101,7 @@ const Booking: FunctionComponent<{ navigation: any, route: any }> = ({ navigatio
                     </View>
                     <View style={{ borderWidth: 1, borderStyle: 'solid', padding: 20, borderLeftWidth: 0, borderColor: 'lightgrey', alignItems: 'center' }}  >
                         <Text>OnGoing No</Text>
-                        <Text style={{ fontSize: 25, color: 'red', fontWeight: 'bold' }}  >{issueNo.ongoingno || 0}</Text>
+                        <Text style={{ fontSize: 25, color: 'red', fontWeight: 'bold' }}  >{issueNo.ongoing_no || 0}</Text>
                     </View>
                 </View>
                 <View style={{ padding: 10 }} >

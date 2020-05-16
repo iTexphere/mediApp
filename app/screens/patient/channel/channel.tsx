@@ -54,12 +54,13 @@ const Channel: FunctionComponent<{ navigation: any, route: any }> = ({ navigatio
     }
 
     useEffect(() => {
+        const { id } = route.params;
         database()
-          .ref('/7')
+          .ref(`/${id}`)
           .on('value', (snapshot: any) => {
             setIssueNo(snapshot.val())
           });
-      }, issueNo)
+      }, [database])
 
     const { dr_name, specialist_in, center_name, dr_notes, reg_no, city, created_at } = route.params;
     return (
