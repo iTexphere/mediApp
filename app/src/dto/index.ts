@@ -19,6 +19,7 @@ export interface IPostRegisterDto {
   role?: string;
 }
 
+
 export interface IPostMedicalLoginDto {
   user_name: string;
   password: string;
