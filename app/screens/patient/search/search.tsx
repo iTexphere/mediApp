@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, FunctionComponent, } from 'react';
 import {
   SafeAreaView,
   View,
@@ -17,7 +17,7 @@ import Loader from "../../../components/Loader/index";
 import AsyncStorage from "@react-native-community/async-storage";
 
 
-const Search = () => {
+const Search : FunctionComponent<{ navigation: any }> = ({ navigation }) => {
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);

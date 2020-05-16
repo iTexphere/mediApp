@@ -24,14 +24,16 @@ interface IDoctor {
 //   ongoingno: string;
 // }
 
-const Home: FunctionComponent<{ navigation: any }> = ({ navigation }) => {
+const Home: FunctionComponent<{ navigation: any, firebase: any }> = ({ navigation, firebase }) => {
   const [ongoingno, setOngoingno] = useState({});
   const [loading, setLoading] = useState<Boolean>(true)
   const [doctors, setDoctors] = useState([]);
-  const [ city, setCity ] = useState('');
+  const [booking, setBooking] = useState<any>({});
+  const [city, setCity] = useState('');
 
   useEffect(() => {
-    const fetchDoctors = async () => {
+
+    const fetchData = async () => {
       try {
         const value = await AsyncStorage.getItem('session');
         if (value !== null) {
@@ -40,29 +42,38 @@ const Home: FunctionComponent<{ navigation: any }> = ({ navigation }) => {
             headers: { 'Authorization': `Bearer ${parse.access_token}` }
           };
 
+          const getBookings = await axios.get(`http://likesgun.com/api/v1/patient/my-booking`, config)
+
           const getDoctors = await axios.post(`http://likesgun.com/api/v1/patient/src`, { dr_name: "", center_name: "", city: parse.user_info.info.city }, config);
 
+          const data = getBookings.data.data
+
+          setBooking(data[data.length - 1])
           setCity(parse.user_info.info.city)
           setDoctors(getDoctors.data.data);
           setLoading(false);
+
         }
       } catch (err) {
-        console.log("errrr", err)
         setLoading(false)
+        console.log("errrrrrrrr", err)
       }
     }
 
-    fetchDoctors();
+    fetchData();
+
   }, [])
 
   useEffect(() => {
-    database()
-      .ref('/7')
-      .on('value', (snapshot: any) => {
-        setOngoingno(snapshot.val())
-      });
-  }, ongoingno)
+    if (booking.medical) {
+      database()
+        .ref(`/${booking.medical.id}`)
+        .on('value', (snapshot: any) => {
+          setOngoingno(snapshot.val())
+        });
+    }
 
+  }, [database, booking])
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -79,13 +90,6 @@ const Home: FunctionComponent<{ navigation: any }> = ({ navigation }) => {
           </View>
 
           <View style={styles.headerMiddle}>
-            {/* <TextInput
-              style={styles.headerInput}
-              onChangeText={text => onChangeText(text)}
-              value={value}
-              placeholder="Search"
-              placeholderTextColor="white"
-            /> */}
             <Text style={styles.headerTxt}>Home</Text>
           </View>
 
@@ -99,13 +103,13 @@ const Home: FunctionComponent<{ navigation: any }> = ({ navigation }) => {
         </View>
       </View>
       <View style={styles.bookWrap}>
-        <BookingColumn bookingNo={'25'} ongoingNo={'' + ongoingno ? ongoingno.ongoingno : 0} />
+        <BookingColumn bookingNo={booking.booking_info ? booking.booking_info.booking_no : 0} ongoingNo={'' + ongoingno ? ongoingno.ongoing_no : 0} />
         <NearbyLocation location={city || ''} />
       </View>
       <Container>
         <Content>
           <List>
-            { doctors && <FlatList
+            {doctors && <FlatList
               data={doctors}
               renderItem={({ item, index }) => (
                 <ChannelListItem
@@ -113,11 +117,11 @@ const Home: FunctionComponent<{ navigation: any }> = ({ navigation }) => {
                   title={item.dr_name}
                   description={item.specialist_in}
                   url={`https://i.picsum.photos/id/91/100/100.jpg`}
-                  onPressChannelBtn={() => navigation.navigate('Channel', item) }
+                  onPressChannelBtn={() => navigation.navigate('Channel', item)}
                 />
               )}
-            />  }
-            
+            />}
+
           </List>
         </Content>
       </Container>
