@@ -18,7 +18,7 @@ const Login: FunctionComponent<Props> = ({ navigation }) => {
   const dispatch = useDispatch();
 
   const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState('123456');
 
   const { signIn } = React.useContext(AuthContext);
 

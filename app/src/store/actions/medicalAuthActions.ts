@@ -39,6 +39,7 @@ export const medicalAuth = (
   dispatch(medicalLoginRequest());
   try {
     const res = await API.post(`medical/signin`, data);
+    console.log('respondOf ', res.data)
     storeData(res.data);
     dispatch(medicalLoginSuccess(res.data));
   } catch (err) {
@@ -56,6 +57,7 @@ export const medicalRegistration = (
   dispatch(medicalRegistrationRequest());
   try {
     const res = await API.post("medical/signup", data);
+
     dispatch(medicalRegistrationSuccess(res.data));
   } catch (err) {
     dispatch(

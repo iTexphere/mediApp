@@ -24,7 +24,7 @@ interface IDoctor {
 //   ongoingno: string;
 // }
 
-const Home: FunctionComponent<{ navigation: any, firebase: any }> = ({ navigation, firebase }) => {
+const Home: FunctionComponent<{ navigation: any, firebase: any }> = ({ navigation }) => {
   const [ongoingno, setOngoingno] = useState({});
   const [loading, setLoading] = useState<Boolean>(true)
   const [doctors, setDoctors] = useState([]);
@@ -33,55 +33,11 @@ const Home: FunctionComponent<{ navigation: any, firebase: any }> = ({ navigatio
 
   useEffect(() => {
 
-    const fetchData = async () => {
-      try {
-        const value = await AsyncStorage.getItem('session');
-        if (value !== null) {
-          const parse = JSON.parse(value)
-          const config = {
-            headers: { 'Authorization': `Bearer ${parse.access_token}` }
-          };
 
-          const getBookings = await axios.get(`http://likesgun.com/api/v1/patient/my-booking`, config)
-          console.log('my bookings' , getBookings)
 
-          const getDoctors = await axios.post(`http://likesgun.com/api/v1/patient/src`, { dr_name: "", center_name: "", city: parse.user_info.info.city }, config);
-          console.log('my doctors' ,getDoctors)
+  }, [])
 
-          const data = getBookings.data.data
 
-          if(data.length > 0) {
-            setBooking(data[0])
-          }
-          else {
-            setBooking([])
-          }
-          
-          setCity(parse.user_info.info.city)
-          setDoctors(getDoctors.data.data);
-          setLoading(false);
-
-        }
-      } catch (err) {
-        setLoading(false)
-        console.log("errrrrrrrr", err)
-      }
-    }
-
-    fetchData();
-
-  }, [booking])
-
-  useEffect(() => {
-    if (booking.medical) {
-      database()
-        .ref(`/${booking.medical.id}`)
-        .on('value', (snapshot: any) => {
-          setOngoingno(snapshot.val())
-        });
-    }
-
-  }, [database, booking])
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -103,8 +59,8 @@ const Home: FunctionComponent<{ navigation: any, firebase: any }> = ({ navigatio
 
           <View style={styles.headerRight}>
             <FaIcon
-              name="search"
-              onPress={() => navigation.navigate('Search')}
+              name="IssueNo"
+              onPress={() => navigation.navigate('issueNo')}
               style={styles.headerMenuIcon}
             />
           </View>

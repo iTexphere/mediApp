@@ -11,6 +11,7 @@ import { Props } from '../../../../Nav_types';
 
 const MedicalLogin: FunctionComponent<Props> = ({ navigation }) => {
   const response = useSelector((state: RootState) => state.medicalAuth.data);
+  
   const error = useSelector((state: RootState) => state.medicalAuth.error);
   const disable = useSelector((state: RootState) => state.medicalAuth.disable);
   const dispatch = useDispatch();
@@ -21,11 +22,15 @@ const MedicalLogin: FunctionComponent<Props> = ({ navigation }) => {
   const { signIn } = React.useContext(AuthContext);
 
   useEffect(() => {
+
+    
+
     if (error) {
       alert(error);
     }
     if (response && response.status == 'success') {
-      // navigation.navigate('Home');
+       //navigation.navigate('Home');
+       console.log('medical response-xx', response)
     } else if (response && response.status.length > 0) {
       alert('Invalid username or password.');
     }
@@ -54,6 +59,7 @@ const MedicalLogin: FunctionComponent<Props> = ({ navigation }) => {
 
     if (!isInvalid) {
       await dispatch(medicalAuth(payload));
+      console.log('response123', response);
       signIn(payload)
     }
   };

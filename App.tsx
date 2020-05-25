@@ -194,6 +194,78 @@ const CustomDrawerContent: React.SFC<any> = props => {
   );
 };
 
+const CustomDrawerContentMedical: React.SFC<any> = props => {
+  const { signOut } = React.useContext(AuthContext);
+  // console.log(props)
+  return (
+    <DrawerContentScrollView {...props}>
+      <View style={styles.drawerBannerWrap}>
+        {/* <Image source={require('./app/assests/logo1.png')} style={{height:100, width:100}}/> */}
+        <Text style={styles.drawerBannerTitle}>Medical App </Text>
+      </View>
+
+      <DrawerItem
+        label="Home"
+        icon={({ focused, color, size }) => (
+          <Icon color={color} name={'medicalHome'} style={styles.drawerIconSize} />
+        )}
+        activeTintColor={Colors.primaryBtn}
+        focused={props.state.index === 0 ? true : false}
+        onPress={() => props.navigation.navigate('medicalHome')}
+      />
+      <DrawerItem
+        label="Issue Number"
+        icon={({ focused, color, size }) => (
+          <Icon color={color} name={'issueNo'} style={styles.drawerIconSize} />
+        )}
+        activeTintColor={Colors.primaryBtn}
+        focused={props.state.index === 0 ? true : false}
+        onPress={() => props.navigation.navigate('issueNo')}
+      />
+      <DrawerItem
+        label="Logout"
+        icon={({ focused, color, size }) => (
+          <Icon color={color} name={'logout'} style={styles.drawerIconSize} />
+        )}
+        activeTintColor={Colors.primaryBtn}
+        focused={props.state.index === 0 ? true : false}
+        onPress={() => {
+
+
+          Alert.alert(
+            'Logout',
+            'Are you sure you want to logout ?',
+            [
+              {
+                text: 'Cancel',
+                onPress: () => console.log('Cancel Pressed'),
+                style: 'cancel'
+              },
+              {
+                text: 'OK', onPress: async () => {
+
+                  signOut();
+                  await AsyncStorage.removeItem('session')
+
+                  // self.navigation.navigate('Login')
+                }
+              }
+            ],
+            { cancelable: false }
+          );
+        }}
+      />
+      {/* <DrawerItem
+        label="Home"
+        icon={({ focused, color, size }) => <Icon color={color} name={'home'} style={styles.drawerIconSize} />}
+        activeTintColor={'#000'}
+        focused={props.state.index === 0 ? true : false}
+        onPress={()=> props.navigation.navigate('Home')}
+      /> */}
+    </DrawerContentScrollView>
+  );
+};
+
 const App: React.SFC = ({ navigation }) => {
   const [state, dispatch] = useReducer(
     (prevState, action) => {
