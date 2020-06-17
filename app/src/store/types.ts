@@ -1,4 +1,8 @@
-import { ILoginResponseDto, IRegisterResponseDto, IMedicalRegisterResponseDto } from '../dto';
+import {
+  ILoginResponseDto,
+  IRegisterResponseDto,
+  IMedicalRegisterResponseDto,
+} from '../dto';
 import { rootReducer } from './configureStore';
 
 /**
@@ -24,6 +28,7 @@ export enum ActionTypes {
   MEDICAL_REGISTRATION_REQUEST = 'MEDICAL_REGISTRATION_REQUEST',
   MEDICAL_REGISTRATION_SUCCESS = 'MEDICAL_REGISTRATION_SUCCESS',
   MEDICAL_REGISTRATION_FAILURE = 'MEDICAL_REGISTRATION_FAILURE',
+  LOGOUT = 'LOGOUT',
 }
 
 /**
@@ -76,42 +81,53 @@ export interface IRegisterFailer {
   payload: string;
 }
 
-export type LoginDispatchTypes = ILoginRequest | ILoginSuccess | ILoginFailed;
+export interface ILogout {
+  type: typeof ActionTypes.LOGOUT;
+}
+
+export type LoginDispatchTypes =
+  | ILoginRequest
+  | ILoginSuccess
+  | ILoginFailed
+  | ILogout;
 export type RegisterDispatchTypes =
   | IRegisterRequest
   | IRegisterSuccess
   | IRegisterFailer;
 
+export interface IMedicalLoginRequest {
+  type: typeof ActionTypes.MEDICAL_LOGIN_REQUEST;
+}
 
-  export interface IMedicalLoginRequest {
-    type: typeof ActionTypes.MEDICAL_LOGIN_REQUEST;
-  }
-  
-  export interface IMedicalLoginSuccess {
-    type: typeof ActionTypes.MEDICAL_LOGIN_SUCCESS;
-    payload: ILoginResponseDto;
-  }
-  
-  export interface IMedicalLoginFailed {
-    type: typeof ActionTypes.MEDICAL_LOGIN_FAILURE;
-    payload: string;
-  }
-  
-  export interface IMedicalRegisterRequest {
-    type: typeof ActionTypes.MEDICAL_REGISTRATION_REQUEST;
-  }
-  
-  export interface IMedicalRegisterSuccess {
-    type: typeof ActionTypes.MEDICAL_REGISTRATION_SUCCESS;
-    payload: IMedicalRegisterResponseDto;
-  }
-  
-  export interface IMedicalRegisterFailer {
-    type: typeof ActionTypes.MEDICAL_REGISTRATION_FAILURE;
-    payload: string;
-  }
-  
-export type MedicalLoginDispatchTypes = IMedicalLoginRequest | IMedicalLoginSuccess | IMedicalLoginFailed;
+export interface IMedicalLoginSuccess {
+  type: typeof ActionTypes.MEDICAL_LOGIN_SUCCESS;
+  payload: ILoginResponseDto;
+}
+
+export interface IMedicalLoginFailed {
+  type: typeof ActionTypes.MEDICAL_LOGIN_FAILURE;
+  payload: string;
+}
+
+export interface IMedicalRegisterRequest {
+  type: typeof ActionTypes.MEDICAL_REGISTRATION_REQUEST;
+}
+
+export interface IMedicalRegisterSuccess {
+  type: typeof ActionTypes.MEDICAL_REGISTRATION_SUCCESS;
+  payload: IMedicalRegisterResponseDto;
+}
+
+export interface IMedicalRegisterFailer {
+  type: typeof ActionTypes.MEDICAL_REGISTRATION_FAILURE;
+  payload: string;
+}
+
+export type MedicalLoginDispatchTypes =
+  | IMedicalLoginRequest
+  | IMedicalLoginSuccess
+  | IMedicalLoginFailed
+  | ILogout;
 export type MedicalRegisterDispatchTypes =
   | IMedicalRegisterRequest
   | IMedicalRegisterSuccess

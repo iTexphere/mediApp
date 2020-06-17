@@ -1,10 +1,14 @@
-import { IMedicalAuthState, MedicalLoginDispatchTypes, ActionTypes } from '../types';
+import {
+  IMedicalAuthState,
+  MedicalLoginDispatchTypes,
+  ActionTypes,
+} from '../types';
 
 const initialState: IMedicalAuthState = {
   isLoading: false,
   data: null,
   disable: false,
-  error: ''
+  error: '',
 };
 
 const medicalAuthReducer = (
@@ -18,7 +22,7 @@ const medicalAuthReducer = (
         isLoading: true,
         disable: true,
         data: null,
-        error: ''
+        error: '',
       };
     case ActionTypes.MEDICAL_LOGIN_SUCCESS:
       return {
@@ -26,7 +30,7 @@ const medicalAuthReducer = (
         isLoading: false,
         data: action.payload,
         disable: false,
-        error: ''
+        error: '',
       };
     case ActionTypes.MEDICAL_LOGIN_FAILURE:
       return {
@@ -34,7 +38,15 @@ const medicalAuthReducer = (
         isLoading: false,
         error: action.payload,
         disable: false,
-        data: null
+        data: null,
+      };
+    case ActionTypes.LOGOUT:
+      return {
+        ...state,
+        isLoading: false,
+        error: null,
+        disable: false,
+        data: null,
       };
     default:
       return state;

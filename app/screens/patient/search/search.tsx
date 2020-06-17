@@ -1,23 +1,36 @@
-import React, { useState, useEffect, FunctionComponent, } from 'react';
+import React, { useState, useEffect, FunctionComponent } from 'react';
 import {
   SafeAreaView,
   View,
   StatusBar,
   FlatList,
   ScrollView,
-  Alert
+  Alert,
+  Platform,
 } from 'react-native';
 import styles from './styles';
 import Colors from '../../../utils/Colors';
 import axios from 'axios';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { Container, List, ListItem, Button, Header, Content, Text, Item, Picker, Icon, Label, Input } from 'native-base';
+import {
+  Container,
+  List,
+  ListItem,
+  Button,
+  Header,
+  Content,
+  Text,
+  Item,
+  Picker,
+  Icon,
+  Label,
+  Input,
+} from 'native-base';
 import { ChannelListItem } from '../../../components/ChannelListItem';
-import Loader from "../../../components/Loader/index";
-import AsyncStorage from "@react-native-community/async-storage";
+import Loader from '../../../components/Loader/index';
+import AsyncStorage from '@react-native-community/async-storage';
 
-
-const Search : FunctionComponent<{ navigation: any }> = ({ navigation }) => {
+const Search: FunctionComponent<{ navigation: any }> = ({ navigation }) => {
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
@@ -25,9 +38,8 @@ const Search : FunctionComponent<{ navigation: any }> = ({ navigation }) => {
   const [center_name, setCenterName] = useState<String>('');
   const [city, setCity] = useState<String>('Malabe');
   const [doctors, setDoctors] = useState([]);
-  const [loading, setLoading] = useState<Boolean>(true)
+  const [loading, setLoading] = useState<Boolean>(true);
   const [token, setToken] = useState<String>('');
-
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
@@ -35,7 +47,7 @@ const Search : FunctionComponent<{ navigation: any }> = ({ navigation }) => {
     setDate(currentDate);
   };
 
-  const showMode = currentMode => {
+  const showMode = (currentMode) => {
     setShow(true);
     setMode(currentMode);
   };
@@ -49,63 +61,65 @@ const Search : FunctionComponent<{ navigation: any }> = ({ navigation }) => {
       const value = await AsyncStorage.getItem('session');
       if (value !== null) {
         // value previously stored
-        const parse = JSON.parse(value)
-        console.log("value", parse.access_token);
-        setToken(parse.access_token)
+        const parse = JSON.parse(value);
+        console.log('value', parse.access_token);
+        setToken(parse.access_token);
       }
     } catch (e) {
       // error reading value
     }
-  }
+  };
 
   useEffect(() => {
-
-
     const fetchDoctors = async () => {
       try {
         const value = await AsyncStorage.getItem('session');
-        const parse = JSON.parse(value)
+        const parse = JSON.parse(value);
         const config = {
-          headers: { 'Authorization': `Bearer ${parse.access_token}` }
+          headers: { Authorization: `Bearer ${parse.access_token}` },
         };
 
         // setCity(parse.info.city)
-        const getDoctors = await axios.post(`http://likesgun.com/api/v1/patient/src`, { dr_name, center_name, city }, config);
+        const getDoctors = await axios.post(
+          `http://likesgun.com/api/v1/patient/src`,
+          { dr_name, center_name, city },
+          config
+        );
         // const json = await getDoctors.json();
         setDoctors(getDoctors.data);
         setLoading(false);
       } catch (err) {
-        console.log("errrr", err)
-        setLoading(false)
+        console.log('errrr', err);
+        setLoading(false);
       }
+    };
 
-    }
-
-    getData()
+    getData();
     // if (token !== "") {
-    fetchDoctors()
+    fetchDoctors();
     // }
-
-
-  }, [])
+  }, []);
 
   const searchDoctor = async () => {
     setLoading(true);
     try {
-
       const config = {
-        headers: { 'Authorization': `Bearer ${token}` }
+        headers: { Authorization: `Bearer ${token}` },
       };
-      const getDoctors = await axios.post(`http://likesgun.com/api/v1/patient/src`, { dr_name, center_name, city }, config);
+      const getDoctors = await axios.post(
+        `http://likesgun.com/api/v1/patient/src`,
+        { dr_name, center_name, city },
+        config
+      );
       // const json = await getDoctors.json();
       setDoctors(getDoctors.data);
       setLoading(false);
     } catch (err) {
-      setLoading(false)
+      setLoading(false);
       // Alert.alert()
       // alert(err)
     }
-  }
+  };
 
   // const [chosenDate, setChosenDate] = useState(new Date())
   // console.log(chosenDate)
@@ -116,27 +130,61 @@ const Search : FunctionComponent<{ navigation: any }> = ({ navigation }) => {
 
   // console.log(date);
 
-
-
   return (
     <SafeAreaView>
       <View style={styles.searchTopWrap}>
-        <StatusBar backgroundColor={Colors.statusBar} barStyle="light-content" />
+        <StatusBar
+          backgroundColor={Colors.statusBar}
+          barStyle="light-content"
+        />
         <Loader loading={loading} />
         <View style={styles.searchWrap}>
           <Item style={styles.doctorInputrow}>
-            <Icon style={styles.doctorNameIcon} type="FontAwesome" name="user-md" />
-            <Input style={[styles.doctorNameInput, { lineHeight: 20, paddingTop: 20 }]} onChangeText={(val) => setDrName(val)} placeholder='Doctor - Max 20 Characters' />
+            <Icon
+              style={styles.doctorNameIcon}
+              type="FontAwesome"
+              name="user-md"
+            />
+            <Input
+              style={[
+                styles.doctorNameInput,
+                { lineHeight: 20, paddingTop: 20 },
+              ]}
+              onChangeText={(val) => setDrName(val)}
+              placeholder="Doctor - Max 20 Characters"
+            />
           </Item>
 
           <Item style={styles.doctorInputrow}>
-            <Icon style={styles.doctorNameIcon} type="FontAwesome" name="user-md" />
-            <Input style={[styles.doctorNameInput, { lineHeight: 20, paddingTop: 20 }]} onChangeText={(val) => setCenterName(val)} placeholder='Center Name' />
+            <Icon
+              style={styles.doctorNameIcon}
+              type="FontAwesome"
+              name="user-md"
+            />
+            <Input
+              style={[
+                styles.doctorNameInput,
+                { lineHeight: 20, paddingTop: 20 },
+              ]}
+              onChangeText={(val) => setCenterName(val)}
+              placeholder="Center Name"
+            />
           </Item>
 
           <Item style={styles.doctorInputrow}>
-            <Icon style={styles.doctorNameIcon} type="FontAwesome" name="user-md" />
-            <Input style={[styles.doctorNameInput, { lineHeight: 20, paddingTop: 20 }]} value={city} onChangeText={(val) => setCity(val)} placeholder='City' />
+            <Icon
+              style={styles.doctorNameIcon}
+              type="FontAwesome"
+              name="user-md"
+            />
+            <Input
+              style={[
+                styles.doctorNameInput,
+                { lineHeight: 20, paddingTop: 20 },
+              ]}
+              onChangeText={(val) => setCity(val)}
+              placeholder="City"
+            />
           </Item>
 
           {/* <Item picker>
@@ -183,9 +231,21 @@ const Search : FunctionComponent<{ navigation: any }> = ({ navigation }) => {
             <Button onPress={showDatepicker} title="Show date picker!" />
           </View> */}
 
-          <Item style={styles.doctorInputrow} >
-            <Icon style={[styles.doctorNameIcon, { fontSize: 22 }]} type="FontAwesome" name="calendar" />
-            <Input style={[styles.doctorNameInput, { lineHeight: 20, paddingTop: 20 }]} value={` ${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`} placeholder='Any date' disabled />
+          <Item style={styles.doctorInputrow}>
+            <Icon
+              style={[styles.doctorNameIcon, { fontSize: 22 }]}
+              type="FontAwesome"
+              name="calendar"
+            />
+            <Input
+              style={[
+                styles.doctorNameInput,
+                { lineHeight: 20, paddingTop: 20 },
+              ]}
+              value={` ${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`}
+              placeholder="Any date"
+              disabled
+            />
           </Item>
 
           {show && (
@@ -193,36 +253,43 @@ const Search : FunctionComponent<{ navigation: any }> = ({ navigation }) => {
               testID="dateTimePicker"
               timeZoneOffsetInMinutes={0}
               value={date}
-              mode={mode}
               is24Hour={true}
               display="default"
               onChange={onChange}
             />
           )}
 
-          <Button style={styles.searchBtnWrap} onPress={searchDoctor} primary={true} full>
+          <Button
+            style={styles.searchBtnWrap}
+            onPress={searchDoctor}
+            primary={true}
+            full
+          >
             <Text style={styles.searchBtnTxt}>Search</Text>
           </Button>
-
         </View>
       </View>
 
-      {doctors.data && <FlatList
-        data={doctors.data}
-        renderItem={(item, index) => {
-          return <ChannelListItem
-            key={index}
-            title={item.item.dr_name}
-            description={item.item.specialist_in}
-            url={`https://i.picsum.photos/id/91/100/100.jpg`}
-            onPressChannelBtn={() => navigation.navigate('Channel', item.item)}
-
-          />
-        }}
-      />}
-
+      {doctors.length > 0 && (
+        <FlatList
+          data={doctors}
+          renderItem={({ item, index }) => {
+            return (
+              <ChannelListItem
+                key={index}
+                title={item.item.dr_name}
+                description={item.item.specialist_in}
+                url={`https://i.picsum.photos/id/91/100/100.jpg`}
+                onPressChannelBtn={() =>
+                  navigation.navigate('Channel', item.item)
+                }
+              />
+            );
+          }}
+        />
+      )}
     </SafeAreaView>
-  )
-}
+  );
+};
 
 export default Search;

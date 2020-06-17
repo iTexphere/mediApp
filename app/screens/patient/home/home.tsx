@@ -3,7 +3,7 @@ import { SafeAreaView, View, StatusBar, FlatList } from 'react-native';
 import styles from './style';
 import EnIcon from 'react-native-vector-icons/Entypo';
 import FaIcon from 'react-native-vector-icons/FontAwesome';
-import AsyncStorage from "@react-native-community/async-storage";
+import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
 import { ChannelListItem } from '../../../components/ChannelListItem';
 import { BookingColumn } from '../../../components/BookingColumn';
@@ -24,64 +24,71 @@ interface IDoctor {
 //   ongoingno: string;
 // }
 
-const Home: FunctionComponent<{ navigation: any, firebase: any }> = ({ navigation, firebase }) => {
-  const [ongoingno, setOngoingno] = useState({});
-  const [loading, setLoading] = useState<Boolean>(true)
+const Home: FunctionComponent<{ navigation: any; firebase: any }> = ({
+  navigation,
+  firebase,
+}) => {
+  const [ongoingno, setOngoingno] = useState({
+    ongoing_no: 0,
+  });
+  const [loading, setLoading] = useState<Boolean>(true);
   const [doctors, setDoctors] = useState([]);
   const [booking, setBooking] = useState<any>({});
   const [city, setCity] = useState('');
 
   useEffect(() => {
-
     const fetchData = async () => {
       try {
         const value = await AsyncStorage.getItem('session');
         if (value !== null) {
-          const parse = JSON.parse(value)
+          const parse = JSON.parse(value);
           const config = {
-            headers: { 'Authorization': `Bearer ${parse.access_token}` }
+            headers: { Authorization: `Bearer ${parse.access_token}` },
           };
 
-          const getBookings = await axios.get(`http://likesgun.com/api/v1/patient/my-booking`, config)
-          console.log('my bookings' , getBookings)
+          const getBookings = await axios.get(
+            `http://likesgun.com/api/v1/patient/my-booking`,
+            config
+          );
+          console.log('my bookings', getBookings);
 
-          const getDoctors = await axios.post(`http://likesgun.com/api/v1/patient/src`, { dr_name: "", center_name: "", city: parse.user_info.info.city }, config);
-          console.log('my doctors' ,getDoctors)
+          const getDoctors = await axios.post(
+            `http://likesgun.com/api/v1/patient/src`,
+            { dr_name: '', center_name: '', city: parse.user_info.info.city },
+            config
+          );
+          console.log('my doctors', getDoctors);
 
-          const data = getBookings.data.data
+          const data = getBookings.data.data;
 
-          if(data.length > 0) {
-            setBooking(data[0])
+          if (data.length > 0) {
+            setBooking(data[0]);
+          } else {
+            setBooking([]);
           }
-          else {
-            setBooking([])
-          }
-          
-          setCity(parse.user_info.info.city)
+
+          setCity(parse.user_info.info.city);
           setDoctors(getDoctors.data.data);
           setLoading(false);
-
         }
       } catch (err) {
-        setLoading(false)
-        console.log("errrrrrrrr", err)
+        setLoading(false);
+        console.log('errrrrrrrr', err);
       }
-    }
+    };
 
     fetchData();
-
-  }, [booking])
+  }, [booking]);
 
   useEffect(() => {
     if (booking.medical) {
       database()
         .ref(`/${booking.medical.id}`)
         .on('value', (snapshot: any) => {
-          setOngoingno(snapshot.val())
+          setOngoingno(snapshot.val());
         });
     }
-
-  }, [database, booking])
+  }, [database, booking]);
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -111,25 +118,35 @@ const Home: FunctionComponent<{ navigation: any, firebase: any }> = ({ navigatio
         </View>
       </View>
       <View style={styles.bookWrap}>
-        <BookingColumn bookingNo={booking.booking_info && booking.booking_info.booking_no ? booking.booking_info.booking_no : 0} ongoingNo={'' + ongoingno ? ongoingno.ongoing_no : 0} />
+        <BookingColumn
+          bookingNo={
+            booking.booking_info && booking.booking_info.booking_no
+              ? booking.booking_info.booking_no
+              : 0
+          }
+          ongoingNo={'' + ongoingno ? ongoingno.ongoing_no : 0}
+        />
         <NearbyLocation location={city || ''} />
       </View>
       <Container>
         <Content>
           <List>
-            {doctors && <FlatList
-              data={doctors}
-              renderItem={({ item, index }) => (
-                <ChannelListItem
-                  key={index}
-                  title={item.dr_name}
-                  description={item.specialist_in}
-                  url={`https://i.picsum.photos/id/91/100/100.jpg`}
-                  onPressChannelBtn={() => navigation.navigate('Channel', item)}
-                />
-              )}
-            />}
-
+            {doctors && (
+              <FlatList
+                data={doctors}
+                renderItem={({ item, index }) => (
+                  <ChannelListItem
+                    key={index}
+                    title={item.dr_name}
+                    description={item.specialist_in}
+                    url={`https://i.picsum.photos/id/91/100/100.jpg`}
+                    onPressChannelBtn={() =>
+                      navigation.navigate('Channel', item)
+                    }
+                  />
+                )}
+              />
+            )}
           </List>
         </Content>
       </Container>

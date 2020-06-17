@@ -8,7 +8,6 @@ import { registration } from '../../../src/store/actions/index';
 import { IPostRegisterDto } from '../../../src/dto';
 import { RootState } from '../../../src/store/types';
 import { Props } from '../../../../Nav_types';
-import { AuthContext } from "../../../../App";
 
 import Loader from '../../../components/Loader/index';
 import { useValidateForm } from '../../../hooks/useValidateForm';
@@ -22,8 +21,6 @@ const Registration: FunctionComponent<Props> = ({ navigation }) => {
   const net_error = useSelector((state: RootState) => state.reg.error);
   const disable = useSelector((state: RootState) => state.reg.disable);
 
-  const { signUp } = React.useContext(AuthContext);
-
   const formInitial: IPostRegisterDto = {
     first_name: 'test',
     last_name: 'test',
@@ -34,14 +31,11 @@ const Registration: FunctionComponent<Props> = ({ navigation }) => {
     mobile_number: '0715356999',
     city: 'Malabe',
     district: 'abc',
-    role: 'patient'
+    role: 'patient',
   };
 
   const handleSubmit = (payload: IPostRegisterDto) => {
-    dispatch(registration(payload, () => {
-      signUp(payload)
-    }));
-    
+    dispatch(registration(payload));
   };
 
   const { onChange, onSubmit, errors, values } = useValidateForm(
@@ -82,7 +76,7 @@ const Registration: FunctionComponent<Props> = ({ navigation }) => {
                 spellCheck={false}
                 placeholder="First Name"
                 value={values.first_name}
-                onChangeText={text => onChange(text, 'first_name')}
+                onChangeText={(text) => onChange(text, 'first_name')}
                 errorStyle={{ color: 'red' }}
                 errorMessage={errors.first_name}
               />
@@ -93,7 +87,7 @@ const Registration: FunctionComponent<Props> = ({ navigation }) => {
                 spellCheck={false}
                 placeholder="Last Name"
                 value={values.last_name}
-                onChangeText={text => onChange(text, 'last_name')}
+                onChangeText={(text) => onChange(text, 'last_name')}
                 errorStyle={{ color: 'red' }}
                 errorMessage={errors.last_name}
               />
@@ -105,7 +99,7 @@ const Registration: FunctionComponent<Props> = ({ navigation }) => {
                 spellCheck={false}
                 placeholder="Nic"
                 value={values.nic}
-                onChangeText={text => onChange(text, 'nic')}
+                onChangeText={(text) => onChange(text, 'nic')}
                 errorStyle={{ color: 'red' }}
                 errorMessage={errors.nic}
               />
@@ -117,7 +111,7 @@ const Registration: FunctionComponent<Props> = ({ navigation }) => {
                 spellCheck={false}
                 placeholder="Email"
                 value={values.email}
-                onChangeText={text => onChange(text, 'email')}
+                onChangeText={(text) => onChange(text, 'email')}
                 errorStyle={{ color: 'red' }}
                 errorMessage={errors.email}
               />
@@ -129,7 +123,7 @@ const Registration: FunctionComponent<Props> = ({ navigation }) => {
                 spellCheck={false}
                 placeholder="User Name"
                 value={values.user_name}
-                onChangeText={text => onChange(text, 'user_name')}
+                onChangeText={(text) => onChange(text, 'user_name')}
                 errorStyle={{ color: 'red' }}
                 errorMessage={errors.user_name}
               />
@@ -142,7 +136,7 @@ const Registration: FunctionComponent<Props> = ({ navigation }) => {
                 maxLength={20}
                 placeholder="Password"
                 value={values.password}
-                onChangeText={text => onChange(text, 'password')}
+                onChangeText={(text) => onChange(text, 'password')}
                 errorStyle={{ color: 'red' }}
                 errorMessage={errors.password}
               />
@@ -154,7 +148,7 @@ const Registration: FunctionComponent<Props> = ({ navigation }) => {
                 spellCheck={false}
                 placeholder="District"
                 value={values.district}
-                onChangeText={text => onChange(text, 'district')}
+                onChangeText={(text) => onChange(text, 'district')}
                 errorStyle={{ color: 'red' }}
                 errorMessage={errors.district}
               />
@@ -166,7 +160,7 @@ const Registration: FunctionComponent<Props> = ({ navigation }) => {
                 spellCheck={false}
                 placeholder="City"
                 value={values.city}
-                onChangeText={text => onChange(text, 'city')}
+                onChangeText={(text) => onChange(text, 'city')}
                 errorStyle={{ color: 'red' }}
                 errorMessage={errors.city}
               />
@@ -178,7 +172,7 @@ const Registration: FunctionComponent<Props> = ({ navigation }) => {
                 spellCheck={false}
                 placeholder="Mobile Number"
                 value={values.mobile_number}
-                onChangeText={text => onChange(text, 'mobile_number')}
+                onChangeText={(text) => onChange(text, 'mobile_number')}
                 errorStyle={{ color: 'red' }}
                 errorMessage={errors.mobile_number}
               />
@@ -196,7 +190,7 @@ const Registration: FunctionComponent<Props> = ({ navigation }) => {
               </Text>
               <Text
                 style={[styles.dontHaveAccntTxt, styles.signupTxt]}
-                onPress={() => navigation.navigate('Login')}
+                onPress={() => navigation.navigate('UserLogin')}
               >
                 {' '}
                 Login

@@ -1,2 +1,2 @@
-import Search from './search';
-export default Search;
+import Booking from './booking';
+export default Booking;

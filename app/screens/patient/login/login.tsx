@@ -1,10 +1,9 @@
-import React, { useState, useEffect, FunctionComponent, useContext } from 'react';
-import { View, Image, Text, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect, FunctionComponent } from 'react';
+import { View, Image, Text } from 'react-native';
 import styles from './style';
 import { Container, Content, Item, Input, Icon, Button } from 'native-base';
 import { useSelector, useDispatch } from 'react-redux';
 import { auth } from '../../../src/store/actions/index';
-import { AuthContext } from "../../../../App";
 
 import Loader from '../../../components/Loader/index';
 import { RootState } from '../../../src/store/types';
@@ -20,14 +19,11 @@ const Login: FunctionComponent<Props> = ({ navigation }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('123456');
 
-  const { signIn } = React.useContext(AuthContext);
-
   useEffect(() => {
     if (error) {
       alert(error);
     }
     if (response && response.status == 'success') {
-
     } else if (response && response.status.length > 0) {
       alert('Invalid username or password.');
     }
@@ -49,12 +45,10 @@ const Login: FunctionComponent<Props> = ({ navigation }) => {
     let isInvalid = validate();
     const payload = {
       user_name: username,
-      password: password
+      password: password,
     };
     if (!isInvalid) {
       await dispatch(auth(payload));
-      signIn(payload)
-
     }
   };
 
@@ -80,7 +74,7 @@ const Login: FunctionComponent<Props> = ({ navigation }) => {
                 spellCheck={false}
                 placeholder="Username"
                 value={username}
-                onChangeText={val => setUsername(val)}
+                onChangeText={(val) => setUsername(val)}
               />
             </Item>
 
@@ -91,7 +85,7 @@ const Login: FunctionComponent<Props> = ({ navigation }) => {
                 maxLength={20}
                 placeholder="Password"
                 value={password}
-                onChangeText={val => setPassword(val)}
+                onChangeText={(val) => setPassword(val)}
               />
             </Item>
 
@@ -111,7 +105,7 @@ const Login: FunctionComponent<Props> = ({ navigation }) => {
               </Text>
               <Text
                 style={[styles.dontHaveAccntTxt, styles.signupTxt]}
-                onPress={() => navigation.navigate('Registration')}
+                onPress={() => navigation.navigate('UserReg')}
               >
                 {' '}
                 Sign up here
@@ -119,14 +113,15 @@ const Login: FunctionComponent<Props> = ({ navigation }) => {
             </View>
           </View>
         </View>
-        <View style={styles.medicalAuth}  >
-          <Text onPress={() => navigation.navigate('Auth')}  >Login with Medical center</Text>
+        <View style={styles.medicalAuth}>
+          <Text
+            style={{ marginBottom: 10 }}
+            onPress={() => navigation.navigate('ClientLogin')}
+          >
+            Login with Medical center
+          </Text>
         </View>
       </Content>
-
-
-
-
     </Container>
   );
 };

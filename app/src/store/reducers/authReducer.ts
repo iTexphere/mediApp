@@ -4,7 +4,7 @@ const initialState: IAuthState = {
   isLoading: false,
   data: null,
   disable: false,
-  error: ''
+  error: '',
 };
 
 const authReducer = (
@@ -18,7 +18,7 @@ const authReducer = (
         isLoading: true,
         disable: true,
         data: null,
-        error: ''
+        error: '',
       };
     case ActionTypes.LOGIN_SUCCESS:
       return {
@@ -26,7 +26,7 @@ const authReducer = (
         isLoading: false,
         data: action.payload,
         disable: false,
-        error: ''
+        error: '',
       };
     case ActionTypes.LOGIN_FAILURE:
       return {
@@ -34,7 +34,15 @@ const authReducer = (
         isLoading: false,
         error: action.payload,
         disable: false,
-        data: null
+        data: null,
+      };
+    case ActionTypes.LOGOUT:
+      return {
+        ...state,
+        isLoading: false,
+        error: null,
+        disable: false,
+        data: null,
       };
     default:
       return state;

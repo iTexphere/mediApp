@@ -4,14 +4,14 @@ import styles from './style';
 import { Container, Content, Item, Input, Icon, Button } from 'native-base';
 import { useSelector, useDispatch } from 'react-redux';
 import { medicalAuth } from '../../../src/store/actions/index';
-import { AuthContext } from "../../../../App";
+
 import Loader from '../../../components/Loader/index';
 import { RootState } from '../../../src/store/types';
 import { Props } from '../../../../Nav_types';
 
 const MedicalLogin: FunctionComponent<Props> = ({ navigation }) => {
   const response = useSelector((state: RootState) => state.medicalAuth.data);
-  
+
   const error = useSelector((state: RootState) => state.medicalAuth.error);
   const disable = useSelector((state: RootState) => state.medicalAuth.disable);
   const dispatch = useDispatch();
@@ -19,18 +19,13 @@ const MedicalLogin: FunctionComponent<Props> = ({ navigation }) => {
   const [username, setUsername] = useState('jagath');
   const [password, setPassword] = useState('12345');
 
-  const { signIn } = React.useContext(AuthContext);
-
   useEffect(() => {
-
-    
-
     if (error) {
       alert(error);
     }
     if (response && response.status == 'success') {
-       //navigation.navigate('Home');
-       console.log('medical response-xx', response)
+      //navigation.navigate('Home');
+      console.log('medical response-xx', response);
     } else if (response && response.status.length > 0) {
       alert('Invalid username or password.');
     }
@@ -52,15 +47,11 @@ const MedicalLogin: FunctionComponent<Props> = ({ navigation }) => {
     let isInvalid = validate();
     const payload = {
       user_name: username,
-      password: password
+      password: password,
     };
-
-
 
     if (!isInvalid) {
       await dispatch(medicalAuth(payload));
-      console.log('response123', response);
-      signIn(payload)
     }
   };
 
@@ -78,9 +69,8 @@ const MedicalLogin: FunctionComponent<Props> = ({ navigation }) => {
             />
           </View>
           <View style={styles.formArea}>
-
-            <View   >
-              <Text style={{ textAlign: 'center' }} >Login with Medical</Text>
+            <View>
+              <Text style={{ textAlign: 'center' }}>Login with Medical</Text>
             </View>
             <Item style={styles.usernameWrap}>
               <Icon name="person" style={styles.inputIcon} />
@@ -88,7 +78,7 @@ const MedicalLogin: FunctionComponent<Props> = ({ navigation }) => {
                 spellCheck={false}
                 placeholder="Username"
                 value={username}
-                onChangeText={val => setUsername(val)}
+                onChangeText={(val) => setUsername(val)}
               />
             </Item>
 
@@ -99,7 +89,7 @@ const MedicalLogin: FunctionComponent<Props> = ({ navigation }) => {
                 maxLength={20}
                 placeholder="Password"
                 value={password}
-                onChangeText={val => setPassword(val)}
+                onChangeText={(val) => setPassword(val)}
               />
             </Item>
 
@@ -119,7 +109,7 @@ const MedicalLogin: FunctionComponent<Props> = ({ navigation }) => {
               </Text>
               <Text
                 style={[styles.dontHaveAccntTxt, styles.signupTxt]}
-                onPress={() => navigation.navigate('MedicalRegistration')}
+                onPress={() => navigation.navigate('ClientReg')}
               >
                 {' '}
                 Sign up here
@@ -127,8 +117,13 @@ const MedicalLogin: FunctionComponent<Props> = ({ navigation }) => {
             </View>
           </View>
         </View>
-        <View style={styles.medicalAuth}  >
-          <Text onPress={() => navigation.navigate('Login')}  >Login as a user</Text>
+        <View style={styles.medicalAuth}>
+          <Text
+            style={{ marginBottom: 10 }}
+            onPress={() => navigation.navigate('UserLogin')}
+          >
+            Login as a user
+          </Text>
         </View>
       </Content>
     </Container>

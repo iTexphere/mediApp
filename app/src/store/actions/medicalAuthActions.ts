@@ -3,11 +3,11 @@ import {
   IMedicalRegisterResponseDto,
   IPostMedicalLoginDto,
   IPostMedicalRegisterDto,
-} from "../../dto";
-import { ThunkAction } from "redux-thunk";
-import { AnyAction } from "redux";
-import { AxiosInstance } from "axios";
-import AsyncStorage from "@react-native-community/async-storage";
+} from '../../dto';
+import { ThunkAction } from 'redux-thunk';
+import { AnyAction } from 'redux';
+import { AxiosInstance } from 'axios';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import {
   ActionTypes,
@@ -18,14 +18,14 @@ import {
   IMedicalRegisterSuccess,
   IMedicalRegisterFailer,
   RootState,
-} from "../types";
+} from '../types';
 
 const storeData = async (data) => {
   try {
-    await AsyncStorage.setItem("session", JSON.stringify(data));
+    await AsyncStorage.setItem('session', JSON.stringify(data));
   } catch (e) {
     // saving error
-    console.log("eeeeeee", e);
+    console.log('eeeeeee', e);
   }
 };
 
@@ -39,11 +39,11 @@ export const medicalAuth = (
   dispatch(medicalLoginRequest());
   try {
     const res = await API.post(`medical/signin`, data);
-    console.log('respondOf ', res.data)
+    console.log('respondOf ', res.data);
     storeData(res.data);
     dispatch(medicalLoginSuccess(res.data));
   } catch (err) {
-    dispatch(medicalLoginFailure(err.message || err || "Something Went Wrong"));
+    dispatch(medicalLoginFailure(err.message || err || 'Something Went Wrong'));
   }
 };
 
@@ -56,12 +56,12 @@ export const medicalRegistration = (
 ) => {
   dispatch(medicalRegistrationRequest());
   try {
-    const res = await API.post("medical/signup", data);
+    const res = await API.post('medical/signup', data);
 
     dispatch(medicalRegistrationSuccess(res.data));
   } catch (err) {
     dispatch(
-      medicalRegistrationFailure(err.message || err || "Something Went Wrong")
+      medicalRegistrationFailure(err.message || err || 'Something Went Wrong')
     );
   }
 };
@@ -70,7 +70,7 @@ const medicalLoginRequest = (): IMedicalLoginRequest => ({
   type: ActionTypes.MEDICAL_LOGIN_REQUEST,
 });
 
-const medicalLoginSuccess = (
+export const medicalLoginSuccess = (
   data: ILoginResponseDto
 ): IMedicalLoginSuccess => ({
   type: ActionTypes.MEDICAL_LOGIN_SUCCESS,
@@ -97,3 +97,9 @@ const medicalRegistrationFailure = (error: string): IMedicalRegisterFailer => ({
   type: ActionTypes.MEDICAL_REGISTRATION_FAILURE,
   payload: error,
 });
+
+export const logout = () => {
+  return {
+    type: ActionTypes.LOGOUT,
+  };
+};
