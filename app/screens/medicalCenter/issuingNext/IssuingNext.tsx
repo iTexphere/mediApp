@@ -15,6 +15,7 @@ export default function IssueingNext({ navigation, route }) {
   const res = useSelector((state: RootState) => state.medicalAuth.data);
   const [issue, setIssue] = useState<any>({});
   const [loading, setLoading] = useState(false);
+  
   useEffect(() => {
     const { id } = res.user_info.info;
     database()
@@ -31,7 +32,7 @@ export default function IssueingNext({ navigation, route }) {
     database()
       .ref(`/${id}`)
       .update({
-        issued_no: issue.issued_no++,
+        issued_no: (issue.issued_no+1),
       })
       .finally(() => setLoading(false));
   };
@@ -42,7 +43,7 @@ export default function IssueingNext({ navigation, route }) {
     database()
       .ref(`/${id}`)
       .update({
-        ongoing_no: issue.ongoing_no++,
+        ongoing_no: (issue.ongoing_no+1),
       })
       .finally(() => setLoading(false));
   };
